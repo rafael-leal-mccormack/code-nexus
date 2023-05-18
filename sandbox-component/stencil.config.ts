@@ -1,7 +1,9 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'sandbox-component',
+  plugins: [sass()],
   outputTargets: [
     {
       type: 'dist',

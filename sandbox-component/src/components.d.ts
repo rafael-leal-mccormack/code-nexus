@@ -6,6 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface CodeNexus {
+        "debounceTime": number;
+        "hideEditors": boolean;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +26,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLCodeNexusElement extends Components.CodeNexus, HTMLStencilElement {
+    }
+    var HTMLCodeNexusElement: {
+        prototype: HTMLCodeNexusElement;
+        new (): HTMLCodeNexusElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +39,15 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "code-nexus": HTMLCodeNexusElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface CodeNexus {
+        "debounceTime"?: number;
+        "hideEditors"?: boolean;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +63,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "code-nexus": CodeNexus;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +71,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "code-nexus": LocalJSX.CodeNexus & JSXBase.HTMLAttributes<HTMLCodeNexusElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
