@@ -7,8 +7,17 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface CodeNexus {
+        "css": string;
+        /**
+          * The length of time to debounce updates to the iframe
+         */
         "debounceTime": number;
+        /**
+          * Hides the live editor containers
+         */
         "hideEditors": boolean;
+        "html": string;
+        "javascript": string;
     }
     interface MyComponent {
         /**
@@ -45,8 +54,17 @@ declare global {
 }
 declare namespace LocalJSX {
     interface CodeNexus {
+        "css"?: string;
+        /**
+          * The length of time to debounce updates to the iframe
+         */
         "debounceTime"?: number;
+        /**
+          * Hides the live editor containers
+         */
         "hideEditors"?: boolean;
+        "html"?: string;
+        "javascript"?: string;
     }
     interface MyComponent {
         /**

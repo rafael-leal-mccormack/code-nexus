@@ -12,3 +12,5 @@ export function autocompleteCompletions(context: CompletionContext, cssOptions: 
     options: [...cssOptions]
   }
 }
+
+export type Content = 'html' | 'css' | 'js';
