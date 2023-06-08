@@ -4,7 +4,7 @@ import { sass } from '@stencil/sass';
 export const config: Config = {
   namespace: 'sandbox-component',
   plugins: [sass()],
-  globalStyle: 'sandbox-component/src/global',
+  // globalStyle: 'sandbox-component/src/global/global.scss',
   outputTargets: [
     {
       type: 'dist',

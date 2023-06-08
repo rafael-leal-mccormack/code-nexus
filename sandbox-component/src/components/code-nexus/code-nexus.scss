@@ -1,16 +1,26 @@
 :host {
   --gutter-color: white;
   --gutter-border-color: #ededed;
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  
+
   .nexus-container {
     height: 100%;
+    display: flex;
   }
 }
 
 .editor-group {
   display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.footer-settings {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
 .gutter {
@@ -31,4 +41,10 @@
   cursor: row-resize;
   border-top: 1px solid var(--gutter-border-color);
   border-bottom: 1px solid var(--gutter-border-color);
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }

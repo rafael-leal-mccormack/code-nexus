@@ -19,19 +19,7 @@ export namespace Components {
         "html": string;
         "javascript": string;
     }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface NexusPanel {
     }
 }
 declare global {
@@ -41,15 +29,15 @@ declare global {
         prototype: HTMLCodeNexusElement;
         new (): HTMLCodeNexusElement;
     };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLNexusPanelElement extends Components.NexusPanel, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLNexusPanelElement: {
+        prototype: HTMLNexusPanelElement;
+        new (): HTMLNexusPanelElement;
     };
     interface HTMLElementTagNameMap {
         "code-nexus": HTMLCodeNexusElement;
-        "my-component": HTMLMyComponentElement;
+        "nexus-panel": HTMLNexusPanelElement;
     }
 }
 declare namespace LocalJSX {
@@ -66,23 +54,11 @@ declare namespace LocalJSX {
         "html"?: string;
         "javascript"?: string;
     }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface NexusPanel {
     }
     interface IntrinsicElements {
         "code-nexus": CodeNexus;
-        "my-component": MyComponent;
+        "nexus-panel": NexusPanel;
     }
 }
 export { LocalJSX as JSX };
@@ -90,7 +66,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "code-nexus": LocalJSX.CodeNexus & JSXBase.HTMLAttributes<HTMLCodeNexusElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "nexus-panel": LocalJSX.NexusPanel & JSXBase.HTMLAttributes<HTMLNexusPanelElement>;
         }
     }
 }
