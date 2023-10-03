@@ -1,4 +1,4 @@
-import { Component, Element, Host, Prop, Watch, h } from '@stencil/core';
+import { Component, Element, Host, Prop, State, Watch, h } from '@stencil/core';
 import { basicSetup } from 'codemirror';
 import { EditorView } from '@codemirror/view';
 import { Compartment, EditorState } from '@codemirror/state';
@@ -9,9 +9,10 @@ import { javascript } from '@codemirror/lang-javascript';
 import { Content } from './code-nexus-utils';
 import debounce from 'lodash.debounce';
 import Split from 'split.js';
+import { Colors, color, createTheme } from './theme';
 @Component({
   tag: 'code-nexus',
-  styleUrl: 'code-nexus.scss',
+  styleUrls: ['code-nexus.scss'],
   shadow: true,
 })
 export class CodeNexus {
@@ -31,9 +32,20 @@ export class CodeNexus {
   liveContentContainer: HTMLElement;
   liveContentFrame: HTMLIFrameElement;
 
+  footerSectionEl: HTMLElement;
+
   editorTheme = new Compartment();
 
   @Element() el: HTMLCodeNexusElement;
+
+  @State() sizeView: 'full' | 'split' = 'split';
+
+  @Prop() theme: {
+    colors: Colors;
+    dark: boolean;
+  } = { colors: color, dark: true };
+
+  themeCompartment = new Compartment();
 
   /**
    * The length of time to debounce updates to the iframe
@@ -45,7 +57,7 @@ export class CodeNexus {
    */
   @Prop() hideEditors = false;
 
-  @Prop() html = '';
+  @Prop({ mutable: true }) html = '\n\n\n\n\n\n\n\n\n\n\n';
   @Watch('html')
   handleHtmlChange() {
     if (this.html !== this.htmlEditor.state.doc.toString()) {
@@ -53,7 +65,7 @@ export class CodeNexus {
     }
   }
 
-  @Prop() css = '';
+  @Prop({ mutable: true }) css = '\n\n\n\n\n\n\n\n\n\n\n';
   @Watch('css')
   handleCssChange() {
     if (this.css !== this.cssEditor.state.doc.toString()) {
@@ -61,7 +73,7 @@ export class CodeNexus {
     }
   }
 
-  @Prop() javascript = '';
+  @Prop({ mutable: true }) javascript = '\n\n\n\n\n\n\n\n\n\n\n';
   @Watch('javascript')
   handleJsChange() {
     if (this.javascript !== this.jsEditor.state.doc.toString()) {
@@ -104,6 +116,7 @@ export class CodeNexus {
       doc: this.getContent(contentType),
       extensions: [
         basicSetup,
+        createTheme(this.theme.colors, this.theme.dark),
         autocompletion({ override: completions }),
         contentFunc(),
         EditorView.updateListener.of((update: { state: { doc: { toString: () => string } } }) => {
@@ -141,7 +154,21 @@ export class CodeNexus {
     Split([this.editorContainer, this.liveContentContainer], {
       direction: 'horizontal',
       minSize: 0,
+      onDragEnd: sizes => {
+        console.log(sizes);
+        sizes[0] <= 1 ? (this.sizeView = 'full') : (this.sizeView = 'split');
+      },
     });
+
+    this.applyTheme();
+  }
+
+  applyTheme() {
+    this.htmlEditorEl.style.background = this.theme.colors.background;
+    this.cssEditorEl.style.background = this.theme.colors.background;
+    this.jsEditorEl.style.background = this.theme.colors.background;
+    this.editorContainer.style.background = this.theme.colors.background;
+    this.footerSectionEl.style.background = this.theme.colors.background;
   }
 
   prepareContentContainer(contentHost: HTMLIFrameElement) {
@@ -168,6 +195,8 @@ export class CodeNexus {
       <Host
         class={{
           'code-nexus': true,
+          [`code-nexus-view-${this.sizeView}`]: true,
+          [`code-nexus-${this.theme.dark ? 'dark' : 'light'}-theme`]: true
         }}
         id="nexus"
       >
@@ -179,31 +208,46 @@ export class CodeNexus {
             }}
             class="editor-group"
           >
-            <div ref={el => (this.htmlEditorContainer = el)}>
+            <div class="editor-panel" ref={el => (this.htmlEditorContainer = el)}>
               <div class="editor-label">HTML</div>
-              <div ref={el => (this.htmlEditorEl = el)}></div>
+              <div class="editor" ref={el => (this.htmlEditorEl = el)}></div>
             </div>
-            <div ref={el => (this.cssEditorContainer = el)}>
+            <div class="editor-panel" ref={el => (this.cssEditorContainer = el)}>
               <div class="editor-label">CSS</div>
-              <div ref={el => (this.cssEditorEl = el)}></div>
+              <div class="editor" ref={el => (this.cssEditorEl = el)}></div>
             </div>
-            <div ref={el => (this.jsEditorContainer = el)}>
+            <div class="editor-panel" ref={el => (this.jsEditorContainer = el)}>
               <div class="editor-label">Javascript</div>
-              <div ref={el => (this.jsEditorEl = el)}></div>
+              <div class="editor" ref={el => (this.jsEditorEl = el)}></div>
             </div>
           </div>
-          <div ref={el => (this.liveContentContainer = el)} id="content-container">
+          <div class="content-container" ref={el => (this.liveContentContainer = el)} id="content-container">
             <iframe title="Code nexus content" id="nexus-content" ref={el => (this.liveContentFrame = el)}></iframe>
           </div>
         </div>
-        <section class="footer-settings">
+        <section ref={el => this.footerSectionEl = el} class="footer-settings">
           <div>
             <button>Tabbed panes</button>
             <button>Split panes</button>
           </div>
           <div>
-            <button>Split</button>
-            <button>Full page</button>
+            <button
+              onClick={() => {
+                this.sizeView = 'split';
+                this.liveContentContainer.style.width = '50%';
+              }}
+            >
+              Split
+            </button>
+            <button
+              onClick={() => {
+                this.sizeView = 'full';
+                this.liveContentContainer.style.width = '100%';
+                this.editorContainer.style.width = '0';
+              }}
+            >
+              Full page
+            </button>
           </div>
         </section>
       </Host>

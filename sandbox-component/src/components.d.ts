@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Colors } from "./components/code-nexus/theme";
+export { Colors } from "./components/code-nexus/theme";
 export namespace Components {
     interface CodeNexus {
         "css": string;
@@ -18,6 +20,10 @@ export namespace Components {
         "hideEditors": boolean;
         "html": string;
         "javascript": string;
+        "theme": {
+    colors: Colors;
+    dark: boolean;
+  };
     }
     interface NexusPanel {
     }
@@ -53,6 +59,10 @@ declare namespace LocalJSX {
         "hideEditors"?: boolean;
         "html"?: string;
         "javascript"?: string;
+        "theme"?: {
+    colors: Colors;
+    dark: boolean;
+  };
     }
     interface NexusPanel {
     }

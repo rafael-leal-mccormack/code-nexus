@@ -1,6 +1,4 @@
 :host {
-  --gutter-color: white;
-  --gutter-border-color: #ededed;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -17,10 +15,41 @@
   flex-direction: column;
 }
 
+.editor-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  height: 100%;
+  overflow: auto;
+}
+
+.editor-label {
+  padding: 0.5rem 1rem;
+}
+
 .footer-settings {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+}
+
+:host(.code-nexus-dark-theme) {
+  --gutter-color: #21252b;
+
+  .editor-label {
+    color: white;
+  }
+}
+
+:host(.code-nexus-light-theme) {
+  --gutter-color: white;
+
+  .editor-label {
+    color: black;
+  }
 }
 
 .gutter {
