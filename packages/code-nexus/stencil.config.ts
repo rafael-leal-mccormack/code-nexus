@@ -2,7 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-  namespace: 'sandbox-component',
+  namespace: 'CodeNexus',
   plugins: [sass()],
   // globalStyle: 'sandbox-component/src/global/global.scss',
   outputTargets: [
