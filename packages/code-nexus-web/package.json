@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:web": "next build",
     "start": "next start",
+    "start:web": "next dev",
     "lint": "next lint"
   },
   "dependencies": {

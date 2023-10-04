@@ -8,7 +8,8 @@
   "scripts": {
     "test": "node ./__tests__/react-library.test.js",
     "build": "npm run tsc",
-    "tsc": "tsc -p . --outDir ./dist"
+    "tsc": "tsc -p . --outDir ./dist",
+    "prepack": "cd ../../ && npm run build:nexus"
   },
   "files": [
     "dist"
@@ -16,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.8.2",
     "@types/react": "^18.2.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

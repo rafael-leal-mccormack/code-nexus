@@ -1,0 +1,23 @@
+{
+  "name": "code-nexus-project",
+  "version": "1.0.0",
+  "description": "Root package json for code-nexus repository",
+  "main": "index.js",
+  "scripts": {
+    "build:nexus": "turbo build:nexus",
+    "start:nexus": "turbo start:nexus",
+    "build:web": "turbo build:web",
+    "start:web": "turbo start:web",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/code-nexus",
+    "packages/code-nexus-react",
+    "packages/code-nexus-web"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "turborepo": "^0.0.1"
+  }
+}
