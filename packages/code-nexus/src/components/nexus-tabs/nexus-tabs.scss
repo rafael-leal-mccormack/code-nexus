@@ -1,0 +1,56 @@
+:host {
+  display: inline-flex;
+  color: inherit;
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: inherit;
+    color: inherit;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 3px;
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tab {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab:active {
+    background-color: #ccc;
+  }
+}
+
+:host(.theme-dark) {
+    /* Change background color of buttons on hover */
+    .tab:hover {
+      background-color: rgba(255,255,255,0.4);
+    }
+  
+    /* Create an active/current tablink class */
+    .tab:active {
+      background-color: rgba(255,255,255,0.2);
+    }
+}
+
+:host(.nexus-tab-active) {
+  .tab {
+    border-bottom: 3px solid grey;
+    margin-bottom: 0px;
+  }
+}
+
+:host(.theme-dark.nexus-tab-active) {
+  .tab {
+    border-bottom: 3px solid white;
+  }
+}

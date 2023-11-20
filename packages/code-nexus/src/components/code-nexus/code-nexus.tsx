@@ -57,6 +57,16 @@ export class CodeNexus {
    */
   @Prop() hideEditors = false;
 
+  /**
+   * Switches from split view to a tabbed view
+   */
+  @Prop() tabbed = false;
+
+  @Watch('tabbed')
+  handleTabbedChange() {
+    this.tabbed ? this.editorSplitInstance?.destroy() : this.splitEditors()
+  }
+
   @Prop({ mutable: true }) html = '\n\n\n\n\n\n\n\n\n\n\n';
   @Watch('html')
   handleHtmlChange() {
@@ -79,6 +89,16 @@ export class CodeNexus {
     if (this.javascript !== this.jsEditor.state.doc.toString()) {
       this.setContent('js', this.javascript);
     }
+  }
+
+  @State() visibleTab: Content = 'html';
+
+  isVisible(type: Content) {
+    if (!this.tabbed) {
+      return true;
+    }
+
+    return type === this.visibleTab;
   }
 
   getContent(contentType: Content) {
@@ -133,6 +153,11 @@ export class CodeNexus {
     });
   }
 
+
+  splitEditors() {
+    this.editorSplitInstance = Split([this.htmlEditorContainer, this.cssEditorContainer, this.jsEditorContainer], { minSize: 0, direction: 'vertical' });
+  }
+
   updateLiveContent = (html, css, javascript) => {
     this.html = html;
     this.css = css;
@@ -145,12 +170,17 @@ export class CodeNexus {
 
   debouncedUpdate = debounce(this.updateLiveContent, this.debounceTime);
 
+  editorSplitInstance: Split.Instance;
+
   componentDidLoad() {
     this.htmlEditor = this.createEditor('html', html, this.htmlEditorEl, []);
     this.cssEditor = this.createEditor('css', css, this.cssEditorEl, []);
     this.jsEditor = this.createEditor('js', javascript, this.jsEditorEl, []);
 
-    Split([this.htmlEditorContainer, this.cssEditorContainer, this.jsEditorContainer], { minSize: 0, direction: 'vertical' });
+    // splits the editor panel
+    this.splitEditors()
+
+    //splits the editors and browser view
     Split([this.editorContainer, this.liveContentContainer], {
       direction: 'horizontal',
       minSize: 0,
@@ -196,7 +226,8 @@ export class CodeNexus {
         class={{
           'code-nexus': true,
           [`code-nexus-view-${this.sizeView}`]: true,
-          [`code-nexus-${this.theme.dark ? 'dark' : 'light'}-theme`]: true
+          [`code-nexus-${this.theme.dark ? 'dark' : 'light'}-theme`]: true,
+          'code-nexus-tabbed-view': this.tabbed,
         }}
         id="nexus"
       >
@@ -208,15 +239,49 @@ export class CodeNexus {
             }}
             class="editor-group"
           >
-            <div class="editor-panel" ref={el => (this.htmlEditorContainer = el)}>
+            <div
+              class={{
+                'nexus-view-toggle': true,
+                'toggles-visible': this.tabbed,
+              }}
+            > 
+              <nexus-tab active={this.visibleTab === 'html'} onDark={this.theme.dark} onClick={() => {
+                this.visibleTab = 'html'
+              }}>HTML</nexus-tab>
+              <nexus-tab active={this.visibleTab === 'css'} onDark={this.theme.dark} onClick={() => {
+                this.visibleTab = 'css'
+              }}>CSS</nexus-tab>
+              <nexus-tab active={this.visibleTab === 'js'} onDark={this.theme.dark} onClick={() => {
+                this.visibleTab = 'js'
+              }}>JS</nexus-tab>
+            </div>
+            <div
+              class={{
+                'editor-panel': true,
+                'panel-visible': this.isVisible('html'),
+              }}
+              ref={el => (this.htmlEditorContainer = el)}
+            >
               <div class="editor-label">HTML</div>
               <div class="editor" ref={el => (this.htmlEditorEl = el)}></div>
             </div>
-            <div class="editor-panel" ref={el => (this.cssEditorContainer = el)}>
+            <div
+              class={{
+                'editor-panel': true,
+                'panel-visible': this.isVisible('css'),
+              }}
+              ref={el => (this.cssEditorContainer = el)}
+            >
               <div class="editor-label">CSS</div>
               <div class="editor" ref={el => (this.cssEditorEl = el)}></div>
             </div>
-            <div class="editor-panel" ref={el => (this.jsEditorContainer = el)}>
+            <div
+              class={{
+                'editor-panel': true,
+                'panel-visible': this.isVisible('js'),
+              }}
+              ref={el => (this.jsEditorContainer = el)}
+            >
               <div class="editor-label">Javascript</div>
               <div class="editor" ref={el => (this.jsEditorEl = el)}></div>
             </div>
@@ -225,10 +290,22 @@ export class CodeNexus {
             <iframe title="Code nexus content" id="nexus-content" ref={el => (this.liveContentFrame = el)}></iframe>
           </div>
         </div>
-        <section ref={el => this.footerSectionEl = el} class="footer-settings">
+        <section ref={el => (this.footerSectionEl = el)} class="footer-settings">
           <div>
-            <button>Tabbed panes</button>
-            <button>Split panes</button>
+            <button
+              onClick={() => {
+                this.tabbed = true;
+              }}
+            >
+              Tabbed panes
+            </button>
+            <button
+              onClick={() => {
+                this.tabbed = false;
+              }}
+            >
+              Split panes
+            </button>
           </div>
           <div>
             <button

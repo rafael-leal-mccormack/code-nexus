@@ -6,7 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Colors } from "./components/code-nexus/theme";
+import { Content } from "./components/code-nexus/code-nexus-utils";
 export { Colors } from "./components/code-nexus/theme";
+export { Content } from "./components/code-nexus/code-nexus-utils";
 export namespace Components {
     interface CodeNexus {
         "css": string;
@@ -20,12 +22,27 @@ export namespace Components {
         "hideEditors": boolean;
         "html": string;
         "javascript": string;
+        /**
+          * Switches from split view to a tabbed view
+         */
+        "tabbed": boolean;
         "theme": {
     colors: Colors;
     dark: boolean;
   };
     }
     interface NexusPanel {
+        "content": string;
+        "panelName": string;
+        "theme": {
+    colors: Colors;
+    dark: boolean;
+  };
+        "type": Content;
+    }
+    interface NexusTab {
+        "active": boolean;
+        "onDark": boolean;
     }
 }
 declare global {
@@ -41,9 +58,16 @@ declare global {
         prototype: HTMLNexusPanelElement;
         new (): HTMLNexusPanelElement;
     };
+    interface HTMLNexusTabElement extends Components.NexusTab, HTMLStencilElement {
+    }
+    var HTMLNexusTabElement: {
+        prototype: HTMLNexusTabElement;
+        new (): HTMLNexusTabElement;
+    };
     interface HTMLElementTagNameMap {
         "code-nexus": HTMLCodeNexusElement;
         "nexus-panel": HTMLNexusPanelElement;
+        "nexus-tab": HTMLNexusTabElement;
     }
 }
 declare namespace LocalJSX {
@@ -59,16 +83,32 @@ declare namespace LocalJSX {
         "hideEditors"?: boolean;
         "html"?: string;
         "javascript"?: string;
+        /**
+          * Switches from split view to a tabbed view
+         */
+        "tabbed"?: boolean;
         "theme"?: {
     colors: Colors;
     dark: boolean;
   };
     }
     interface NexusPanel {
+        "content"?: string;
+        "panelName"?: string;
+        "theme"?: {
+    colors: Colors;
+    dark: boolean;
+  };
+        "type"?: Content;
+    }
+    interface NexusTab {
+        "active"?: boolean;
+        "onDark"?: boolean;
     }
     interface IntrinsicElements {
         "code-nexus": CodeNexus;
         "nexus-panel": NexusPanel;
+        "nexus-tab": NexusTab;
     }
 }
 export { LocalJSX as JSX };
@@ -77,6 +117,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "code-nexus": LocalJSX.CodeNexus & JSXBase.HTMLAttributes<HTMLCodeNexusElement>;
             "nexus-panel": LocalJSX.NexusPanel & JSXBase.HTMLAttributes<HTMLNexusPanelElement>;
+            "nexus-tab": LocalJSX.NexusTab & JSXBase.HTMLAttributes<HTMLNexusTabElement>;
         }
     }
 }

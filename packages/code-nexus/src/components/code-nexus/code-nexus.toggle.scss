@@ -1,0 +1,13 @@
+.nexus-view-toggle {
+  display: none;
+}
+
+.toggles-visible {
+  display: flex;
+}
+
+:host(.code-nexus-dark-theme) {
+  .nexus-view-toggle {
+    color: white;
+  }
+}

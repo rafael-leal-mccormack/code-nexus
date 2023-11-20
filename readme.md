@@ -3,7 +3,7 @@
 
 ## Running code nexus demo env
 
-To run the code nexus demo environment, you should run:
+To run the code nexus demo environment,  you should run:
 
 > npm ci
 

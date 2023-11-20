@@ -1,3 +1,26 @@
 :host {
-  display: block;
+  display: flex;
+  width: 100%;
+}
+
+.editor-panel {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.editor {
+  height: 100%;
+  overflow: auto;
+}
+
+.editor-label {
+  padding: 0.5rem 1rem;
+}
+
+:host(.code-nexus-dark-theme) {
+  .editor-label {
+    color: white;
+  }
 }
