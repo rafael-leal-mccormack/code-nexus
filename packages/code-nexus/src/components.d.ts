@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Colors } from "./components/code-nexus/theme";
+import { Colors } from "./themes/theme";
 import { Content } from "./components/code-nexus/code-nexus-utils";
-export { Colors } from "./components/code-nexus/theme";
+export { Colors } from "./themes/theme";
 export { Content } from "./components/code-nexus/code-nexus-utils";
 export namespace Components {
     interface CodeNexus {

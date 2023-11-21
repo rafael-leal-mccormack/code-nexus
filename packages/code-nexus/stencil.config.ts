@@ -12,7 +12,8 @@ export const config: Config = {
     },
     reactOutputTarget({
       componentCorePackage: 'code-nexus',
-      proxiesFile: '../code-nexus-react/lib/components/stencil-generated/index.ts'
+      proxiesFile: '../code-nexus-react/lib/components/index.ts',
+      includeDefineCustomElements: true,
     }),
     {
       type: 'dist-custom-elements',

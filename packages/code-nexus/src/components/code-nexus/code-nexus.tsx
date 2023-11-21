@@ -9,7 +9,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { Content } from './code-nexus-utils';
 import debounce from 'lodash.debounce';
 import Split from 'split.js';
-import { Colors, color, createTheme } from './theme';
+import { Colors, color, createTheme } from '../../themes/theme';
 @Component({
   tag: 'code-nexus',
   styleUrls: ['code-nexus.scss'],

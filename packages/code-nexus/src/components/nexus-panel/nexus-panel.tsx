@@ -2,7 +2,7 @@ import { CompletionSource, autocompletion } from '@codemirror/autocomplete';
 import { EditorState } from '@codemirror/state';
 import { Component, Host, Prop, h } from '@stencil/core';
 import { basicSetup, EditorView } from 'codemirror';
-import { Colors, color, createTheme } from '../code-nexus/theme';
+import { Colors, color, createTheme } from '../../themes/theme';
 import { Content } from '../code-nexus/code-nexus-utils';
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';

@@ -27,7 +27,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^3.0.0",
+    "@stencil/core": "^4.7.2",
     "lodash.debounce": "^4.0.8",
     "split.js": "^1.6.5"
   },

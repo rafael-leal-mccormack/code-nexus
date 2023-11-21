@@ -1,2 +1,3 @@
-export { createReactComponent } from './components/stencil-generated/react-component-lib/createComponent';
-export { createOverlayComponent } from './components/stencil-generated/react-component-lib/createOverlayComponent';
+export { createReactComponent } from './components/react-component-lib/createComponent';
+export { createOverlayComponent } from './components/react-component-lib/createOverlayComponent';
+export * from './components/components';

@@ -4,7 +4,7 @@
   "description": "Root package json for code-nexus repository",
   "main": "index.js",
   "scripts": {
-    "build:nexus": "turbo build:nexus",
+    "build:nexus": "turbo build:nexus:react",
     "start:nexus": "turbo start:nexus",
     "build:web": "turbo build:web",
     "start:web": "turbo start:web",
