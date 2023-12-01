@@ -1,6 +1,6 @@
 {
   "name": "code-nexus-react",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -13,7 +13,7 @@
     "prepack": "cd ../../ && npm run build:nexus"
   },
   "files": [
-    "dist"
+    "dist/"
   ],
   "author": "",
   "license": "ISC",
