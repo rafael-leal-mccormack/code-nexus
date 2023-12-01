@@ -18,10 +18,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #15151f
+}
+
+.app-background {
+  background: radial-gradient(circle farthest-corner at center center, #182f69 0%,#291835 40%, transparent 75%);
+}
+
+.nexus-header {
+  background-color: #0A090D;
 }

@@ -5,6 +5,9 @@ import { reactOutputTarget } from '@stencil/react-output-target';
 export const config: Config = {
   namespace: 'CodeNexus',
   plugins: [sass()],
+  extras: {
+    enableImportInjection: true,
+  },
   outputTargets: [
     {
       type: 'dist',
@@ -12,8 +15,9 @@ export const config: Config = {
     },
     reactOutputTarget({
       componentCorePackage: 'code-nexus',
-      proxiesFile: '../code-nexus-react/lib/components/index.ts',
+      proxiesFile: '../code-nexus-react/src/components/components.ts',
       includeDefineCustomElements: true,
+      includePolyfills: true,
     }),
     {
       type: 'dist-custom-elements',

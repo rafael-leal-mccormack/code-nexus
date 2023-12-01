@@ -2,27 +2,27 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build:nexus": {
-      "outputs": ["dist/**/*"],
+      "outputs": ["dist/**"],
       "inputs": ["src/**/*"]
     },
     "start:nexus": {
-      "outputs": ["dist/**/*"],
-      "inputs": ["src/**/*"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**"],
       "cache": false
     },
     "build:nexus:react": {
-      "outputs": ["dist/*"],
-      "inputs": ["lib/**/*"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "tsconfig.json"],
       "dependsOn": ["code-nexus#build:nexus"]
     },
     "build:web": {
-      "outputs": ["dist/**/*", "/www/**/*"],
-      "inputs": ["src/**/*"],
+      "outputs": ["dist/**", "/www/**"],
+      "inputs": ["src/**"],
       "dependsOn": ["code-nexus-react#build"]
     },
     "start:web": {
-      "outputs": ["dist/**/*", "/www/**/*"],
-      "inputs": ["src/**/*"],
+      "outputs": ["dist/**", "/www/**"],
+      "inputs": ["src/**"],
       "dependsOn": ["code-nexus-react#build:nexus:react"],
       "cache": false
     },
