@@ -1,6 +1,6 @@
 import { CompletionSource, autocompletion } from '@codemirror/autocomplete';
 import { EditorState } from '@codemirror/state';
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, Watch, h } from '@stencil/core';
 import { basicSetup, EditorView } from 'codemirror';
 import { Colors, color, createTheme } from '../../themes/theme';
 import { Content } from '../code-nexus/code-nexus-utils';
@@ -25,11 +25,19 @@ export class NexusPanel {
     dark: boolean;
   } = { colors: color, dark: true };
 
+  @Prop() readonly = false;
+  @Watch('readonly')
+  handleReadonlyChange() {
+    const func = this.getContentFunction(this.type);
+    this.editorView.setState(EditorState.create(this.buildState(func, [])))
+  }
+
   editorContainer: HTMLElement;
   editorEl: HTMLElement;
+  editorView: EditorView;
 
-  createEditor(contentFunc: Function, parent: HTMLElement, completions: CompletionSource[]) {
-    const startState = EditorState.create({
+  buildState(contentFunc: Function, completions: CompletionSource[]) {
+    return {
       doc: this.content,
       extensions: [
         basicSetup,
@@ -39,10 +47,16 @@ export class NexusPanel {
         EditorView.updateListener.of((update: { state: { doc: { toString: () => string } } }) => {
           this.content = update.state.doc.toString();
         }),
+        EditorState.readOnly.of(this.readonly),
+        EditorView.editable.of(!this.readonly)
       ],
-    });
+    }
+  }
 
-    return new EditorView({
+  createEditor(contentFunc: Function, parent: HTMLElement, completions: CompletionSource[]) {
+    const startState = EditorState.create(this.buildState(contentFunc, completions));
+
+    this.editorView = new EditorView({
       state: startState,
       parent: parent,
       extensions: [],
@@ -86,7 +100,7 @@ export class NexusPanel {
           }}
           ref={el => (this.editorContainer = el)}
         >
-          <div class="editor-label">{this.panelName}</div>
+          <h4 class="editor-label">{this.panelName}</h4>
           <div class="editor" ref={el => (this.editorEl = el)}></div>
         </div>{' '}
       </Host>

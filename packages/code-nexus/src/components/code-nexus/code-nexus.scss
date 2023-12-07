@@ -1,4 +1,6 @@
-@import './code-nexus.toggle.scss';
+@import './code-nexus.tab.scss';
+@import './code-nexus.toggle-button.scss';
+@import '../../global/global.scss';
 
 :host {
   display: flex;
@@ -29,6 +31,8 @@
 }
 
 .editor-label {
+  font-family: $font-family;
+  margin: 0;
   padding: 0.5rem 1rem;
 }
 

@@ -10,6 +10,7 @@ import { Content } from './code-nexus-utils';
 import debounce from 'lodash.debounce';
 import Split from 'split.js';
 import { Colors, color, createTheme } from '../../themes/theme';
+
 @Component({
   tag: 'code-nexus',
   styleUrls: ['code-nexus.scss'],
@@ -64,7 +65,7 @@ export class CodeNexus {
 
   @Watch('tabbed')
   handleTabbedChange() {
-    this.tabbed ? this.editorSplitInstance?.destroy() : this.splitEditors()
+    this.tabbed ? this.editorSplitInstance?.destroy() : this.splitEditors();
   }
 
   @Prop({ mutable: true }) html = '\n\n\n\n\n\n\n\n\n\n\n';
@@ -153,7 +154,6 @@ export class CodeNexus {
     });
   }
 
-
   splitEditors() {
     this.editorSplitInstance = Split([this.htmlEditorContainer, this.cssEditorContainer, this.jsEditorContainer], { minSize: 0, direction: 'vertical' });
   }
@@ -178,7 +178,7 @@ export class CodeNexus {
     this.jsEditor = this.createEditor('js', javascript, this.jsEditorEl, []);
 
     // splits the editor panel
-    this.splitEditors()
+    this.splitEditors();
 
     //splits the editors and browser view
     Split([this.editorContainer, this.liveContentContainer], {
@@ -244,16 +244,34 @@ export class CodeNexus {
                 'nexus-view-toggle': true,
                 'toggles-visible': this.tabbed,
               }}
-            > 
-              <nexus-tab active={this.visibleTab === 'html'} onDark={this.theme.dark} onClick={() => {
-                this.visibleTab = 'html'
-              }}>HTML</nexus-tab>
-              <nexus-tab active={this.visibleTab === 'css'} onDark={this.theme.dark} onClick={() => {
-                this.visibleTab = 'css'
-              }}>CSS</nexus-tab>
-              <nexus-tab active={this.visibleTab === 'js'} onDark={this.theme.dark} onClick={() => {
-                this.visibleTab = 'js'
-              }}>JS</nexus-tab>
+            >
+              <nexus-tab
+                active={this.visibleTab === 'html'}
+                onDark={this.theme.dark}
+                onClick={() => {
+                  this.visibleTab = 'html';
+                }}
+              >
+                HTML
+              </nexus-tab>
+              <nexus-tab
+                active={this.visibleTab === 'css'}
+                onDark={this.theme.dark}
+                onClick={() => {
+                  this.visibleTab = 'css';
+                }}
+              >
+                CSS
+              </nexus-tab>
+              <nexus-tab
+                active={this.visibleTab === 'js'}
+                onDark={this.theme.dark}
+                onClick={() => {
+                  this.visibleTab = 'js';
+                }}
+              >
+                JS
+              </nexus-tab>
             </div>
             <div
               class={{
@@ -262,7 +280,7 @@ export class CodeNexus {
               }}
               ref={el => (this.htmlEditorContainer = el)}
             >
-              <div class="editor-label">HTML</div>
+              <h4 class="editor-label">HTML</h4>
               <div class="editor" ref={el => (this.htmlEditorEl = el)}></div>
             </div>
             <div
@@ -272,7 +290,7 @@ export class CodeNexus {
               }}
               ref={el => (this.cssEditorContainer = el)}
             >
-              <div class="editor-label">CSS</div>
+              <h4 class="editor-label">CSS</h4>
               <div class="editor" ref={el => (this.cssEditorEl = el)}></div>
             </div>
             <div
@@ -282,7 +300,7 @@ export class CodeNexus {
               }}
               ref={el => (this.jsEditorContainer = el)}
             >
-              <div class="editor-label">Javascript</div>
+              <h4 class="editor-label">Javascript</h4>
               <div class="editor" ref={el => (this.jsEditorEl = el)}></div>
             </div>
           </div>
@@ -293,6 +311,10 @@ export class CodeNexus {
         <section ref={el => (this.footerSectionEl = el)} class="footer-settings">
           <div>
             <button
+              class={{
+                'toggle-button': true,
+                'toggle-button-active': this.tabbed,
+              }}
               onClick={() => {
                 this.tabbed = true;
               }}
@@ -300,6 +322,10 @@ export class CodeNexus {
               Tabbed panes
             </button>
             <button
+            class={{
+              'toggle-button': true,
+              'toggle-button-active': !this.tabbed,
+            }}
               onClick={() => {
                 this.tabbed = false;
               }}

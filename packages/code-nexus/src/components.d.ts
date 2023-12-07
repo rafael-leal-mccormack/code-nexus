@@ -34,6 +34,7 @@ export namespace Components {
     interface NexusPanel {
         "content": string;
         "panelName": string;
+        "readonly": boolean;
         "theme": {
     colors: Colors;
     dark: boolean;
@@ -95,6 +96,7 @@ declare namespace LocalJSX {
     interface NexusPanel {
         "content"?: string;
         "panelName"?: string;
+        "readonly"?: boolean;
         "theme"?: {
     colors: Colors;
     dark: boolean;

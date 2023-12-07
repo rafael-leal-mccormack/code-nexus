@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource/roboto": "^5.0.8",
     "turborepo": "^0.0.1"
   }
 }
