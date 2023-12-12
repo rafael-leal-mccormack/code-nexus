@@ -10,6 +10,7 @@ import { Content } from './code-nexus-utils';
 import debounce from 'lodash.debounce';
 import Split from 'split.js';
 import { Colors, color, createTheme } from '../../themes/theme';
+import { splitPaneSvg, tabSvg } from '../../utils/svgs/svgs';
 
 @Component({
   tag: 'code-nexus',
@@ -319,37 +320,41 @@ export class CodeNexus {
                 this.tabbed = true;
               }}
             >
+              {tabSvg()}
               Tabbed panes
             </button>
             <button
-            class={{
-              'toggle-button': true,
-              'toggle-button-active': !this.tabbed,
-            }}
+              class={{
+                'toggle-button': true,
+                'toggle-button-active': !this.tabbed,
+              }}
               onClick={() => {
                 this.tabbed = false;
               }}
             >
+              {splitPaneSvg()}
               Split panes
             </button>
           </div>
           <div>
             <button
+              class="nexus-button"
               onClick={() => {
                 this.sizeView = 'split';
                 this.liveContentContainer.style.width = '50%';
               }}
             >
-              Split
+              <div class="button-text">Split</div>
             </button>
             <button
+              class="nexus-button"
               onClick={() => {
                 this.sizeView = 'full';
                 this.liveContentContainer.style.width = '100%';
                 this.editorContainer.style.width = '0';
               }}
             >
-              Full page
+              <div class="button-text">Full page</div>
             </button>
           </div>
         </section>

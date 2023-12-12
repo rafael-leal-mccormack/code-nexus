@@ -1,0 +1,51 @@
+.nexus-button {
+    //undoing button styles
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    font-family: $font-family;
+    overflow: hidden;
+    position: relative;
+    display: inline-flex;
+    padding: 0.5rem;
+    border: 1px solid grey;
+    border-radius: 18px;
+    min-width: 5rem;
+    justify-content: center;
+    margin-inline-start: 0.5rem;
+
+    &:hover:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      left: 0;
+    }
+
+    &:active:after {
+      background-color: rgba(255, 255, 255, 0.15) ;
+    }
+
+    &:focus::after {
+      content: '';
+      position: absolute;
+      height: calc(100% - 4px);
+      width: calc(100% - 4px);
+      top: 0px;
+      left: 0px;
+      border-radius: 1rem;
+      border: 2px solid white;
+    }
+
+    .button-text {
+      padding-inline-start: 0.25rem;
+      padding-inline-end: 0.25rem;
+    }
+}

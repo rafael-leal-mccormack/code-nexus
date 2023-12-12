@@ -15,12 +15,13 @@
   overflow: hidden;
   position: relative;
   display: inline-flex;
-  padding: 1rem 0.5rem;
-  line-height: 14px;
+  padding: 0.625rem 0.5rem;
+  line-height: 24px;
   border: 1px solid grey;
+  gap: 0.25rem;
   border-right: 0;
 
-  &:hover:after {
+  &:hover::after {
     content: '';
     position: absolute;
     height: 100%;
@@ -29,14 +30,26 @@
     background-color: rgba(255, 255, 255, 0.2);
     left: 0;
   }
+
+  &:focus::after {
+    content: '';
+    position: absolute;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    top: 0px;
+    left: 0px;
+    border-radius: 1rem;
+    border: 2px solid white;
+  }
 }
 
+
 .toggle-button:first-child {
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 1rem 0 0 1rem;
 }
 
 .toggle-button:last-child {
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 1rem 1rem 0;
   border-right: 1px solid grey;
 }
 
@@ -64,4 +77,8 @@
 
 :host(.code-nexus-dark-theme) {
   color: white;
+
+  svg {
+    fill: white
+  }
 }

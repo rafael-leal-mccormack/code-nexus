@@ -8,7 +8,6 @@ export const config: Config = {
   extras: {
     enableImportInjection: true,
   },
-  globalStyle: 'global.scss',
   outputTargets: [
     {
       type: 'dist',
