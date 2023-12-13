@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
-      />
       <body className={inter.className}>
-        <div className="app-background absolute bg-slate-300 w-full h-full top-0 left-0 opacity-40"></div>
-        {children}
+        <Providers>
+          <div className="app-background absolute bg-slate-300 w-full h-full top-0 left-0 opacity-40"></div>
+          {children}
+        </Providers>
       </body>
     </html>
   );
