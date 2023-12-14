@@ -12,6 +12,16 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      minWidth: {
+        'card': '320px',
+        'card-md': '400px'
+      },
+      minHeight: {
+        'card': '175px'
+      },
+      width: {
+        '32%': '32%'
+      }
     },
   },
   plugins: [],

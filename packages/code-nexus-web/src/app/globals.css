@@ -28,3 +28,7 @@ body {
 .nexus-header {
   background-color: #0A090D;
 }
+
+.mask-icon {
+  mask-image: linear-gradient(to bottom,rgba(255,255,255,.9) 10%,rgba(255,255,255,.6666666667) 30%,rgba(255,255,255,0) 94%);
+}
