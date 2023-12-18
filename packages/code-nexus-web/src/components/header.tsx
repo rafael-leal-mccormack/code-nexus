@@ -16,7 +16,9 @@ export default function Header() {
         <Link className="p-3 mx-1" href="www.google.com">
           Examples
         </Link>
-        <GithubLogo></GithubLogo>
+        <Link href={"https://github.com/rafael-leal-mccormack/code-nexus"}>
+          <GithubLogo></GithubLogo>
+        </Link>
       </div>
     </div>
   );
