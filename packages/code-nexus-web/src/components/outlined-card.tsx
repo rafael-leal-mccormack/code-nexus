@@ -1,4 +1,3 @@
-import { Link } from "@chakra-ui/next-js";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
