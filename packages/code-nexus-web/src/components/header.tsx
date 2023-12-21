@@ -1,22 +1,24 @@
+import Link from "next/link";
 import GithubLogo from "./github-logo";
 import { nexusLogo } from "./logo";
-import { Link } from "@chakra-ui/next-js";
 
 export default function Header() {
   return (
-    <div className="nexus-header flex flex-row h-14 w-full align-middle items-center justify-between px-3 md:px-6 md:h-20 ">
+    <div className="nexus-header flex flex-row h-14 w-full align-middle items-center justify-between px-3 md:px-6 md:h-20 flex-shrink-0">
       <div className="flex flex-row items-center">
-        {nexusLogo("40", "40")}
+        <Link href={'/'}>
+          {nexusLogo("40", "40")}
+        </Link>
         <h1 className="mx-4 hidden md:block">codeNexus</h1>
       </div>
       <div className="flex flex-row items-center">
-        <Link className="p-3 mx-1" href="www.google.com">
-          API
+        <Link className="p-3 mx-1" href="/getting-started">
+          Installation
         </Link>
-        <Link className="p-3 mx-1" href="www.google.com">
-          Examples
+        <Link className="p-3 mx-1" href="/components">
+          Components
         </Link>
-        <Link href={"https://github.com/rafael-leal-mccormack/code-nexus"}>
+        <Link target="_blank" className="p-2 github-link" href={"https://github.com/rafael-leal-mccormack/code-nexus"}>
           <GithubLogo></GithubLogo>
         </Link>
       </div>

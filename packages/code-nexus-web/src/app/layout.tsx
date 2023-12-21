@@ -1,8 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Header from "../components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html className="h-full overflow-hidden" lang="en">
+      <body className={inter.className + " h-full flex flex-col"}>
         <Providers>
           <SpeedInsights></SpeedInsights>
-          <div className="app-background absolute bg-slate-300 w-full h-full top-0 left-0 opacity-40"></div>
-          {children}
+          <div className="app-background absolute bg-slate-300 w-full h-full top-0 left-0 opacity-40 -z-10"></div>
+          <Header></Header>
+          <main className="flex relative min-h-0 flex-col">
+            <section className="flex flex-col gap-6 center items-center p-4 md:px-14 sm:px-12 overflow-auto">
+              {children}
+            </section>
+          </main>
         </Providers>
       </body>
     </html>
