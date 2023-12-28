@@ -1,9 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { nexusLogo } from '../components/logo'
  
-// Route segment config
-export const runtime = 'edge'
- 
 // Image metadata
 export const size = {
   width: 90,
