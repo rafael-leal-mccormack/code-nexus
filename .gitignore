@@ -1,3 +1,5 @@
 .turbo
 node_modules
 dist/
+
+packages/code-nexus-web/public/assets/docs/

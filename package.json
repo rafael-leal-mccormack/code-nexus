@@ -8,7 +8,10 @@
     "start:nexus": "turbo start:nexus",
     "build:web": "turbo build:web",
     "start:web": "turbo start:web",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy": "./utils/build-script.bash",
+    "copy:nexus": "mkdir packages/code-nexus-web/public/assets/docs/code-nexus && cp packages/code-nexus/src/components/code-nexus/readme.md packages/code-nexus-web/public/assets/docs/code-nexus/",
+    "copy:panel": "mkdir packages/code-nexus-web/public/assets/docs/nexus-panel && cp packages/code-nexus/src/components/nexus-panel/readme.md packages/code-nexus-web/public/assets/docs/nexus-panel/"
   },
   "workspaces": [
     "packages/code-nexus",
@@ -20,5 +23,8 @@
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
     "turborepo": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10"
   }
 }

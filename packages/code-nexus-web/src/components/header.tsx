@@ -9,7 +9,7 @@ export default function Header() {
         <Link href={'/'}>
           {nexusLogo("40", "40")}
         </Link>
-        <h1 className="mx-4 hidden md:block">codeNexus</h1>
+        <h3 className="mx-4 hidden md:block">codeNexus</h3>
       </div>
       <div className="flex flex-row items-center">
         <Link className="p-3 mx-1" href="/getting-started">

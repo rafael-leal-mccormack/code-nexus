@@ -8,9 +8,10 @@ export default function GettingStarted() {
   );
   return (
     <div className="w-full h-full">
-      hello
-      {/* @ts-expect-error Server Component */}
-      <MDXRemote source={markdown} />
+      <div className="prose prose-invert">
+        {/* @ts-expect-error Server Component */}
+        <MDXRemote source={markdown} />
+      </div>
       {/* <CodeNexus className="h-full"></CodeNexus> */}
     </div>
   );
