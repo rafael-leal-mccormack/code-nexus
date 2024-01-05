@@ -18,7 +18,7 @@
     "build:web": {
       "outputs": ["dist/**", "/www/**"],
       "inputs": ["src/**"],
-      "dependsOn": ["code-nexus-react#build", "//#copy"]
+      "dependsOn": ["code-nexus-react#build:nexus:react", "//#copy"]
     },
     "start:web": {
       "outputs": ["dist/**", "/www/**"],
