@@ -22,8 +22,8 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.2",
     "autoprefixer": "10.4.14",
-    "code-nexus": "^0.0.1",
-    "code-nexus-react": "^0.0.1",
+    "code-nexus": "file:../code-nexus",
+    "code-nexus-react": "file:../code-nexus-react",
     "eslint": "8.40.0",
     "eslint-config-next": "^14.0.4",
     "framer-motion": "^10.16.16",
@@ -32,6 +32,7 @@
     "postcss": "8.4.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "remark-gfm": "^3.0.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },

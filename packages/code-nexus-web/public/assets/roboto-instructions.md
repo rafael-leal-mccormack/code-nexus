@@ -15,9 +15,9 @@ It's recommended to install the roboto fonts and use them in your app for this l
 Include the below snippet in your main `index.html` file or entry file for your application. If you want to look into the other ways to use the roboto font, there is more information [here](https://fonts.google.com/specimen/Roboto).
 
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
 ```
 
 ## Code Nexus

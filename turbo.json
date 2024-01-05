@@ -18,13 +18,16 @@
     "build:web": {
       "outputs": ["dist/**", "/www/**"],
       "inputs": ["src/**"],
-      "dependsOn": ["code-nexus-react#build"]
+      "dependsOn": ["code-nexus-react#build", "//#copy"]
     },
     "start:web": {
       "outputs": ["dist/**", "/www/**"],
       "inputs": ["src/**"],
-      "dependsOn": ["code-nexus-react#build:nexus:react"],
+      "dependsOn": ["code-nexus-react#build:nexus:react", "//#copy"],
       "cache": false
+    },
+    "//#copy": {
+      "dependsOn": []
     },
     "lint": {}
   }

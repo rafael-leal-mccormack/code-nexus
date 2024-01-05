@@ -51,3 +51,35 @@ body {
   left: 0;
   border-radius: 50%;
 }
+
+
+/**
+* Styles for property table
+*/
+table {
+  color: inherit;
+
+  th,
+  td,
+  thead th,
+  tbody + tbody {
+    border-color: black;
+  }
+}
+
+/* _tables.scss:132 */
+table {
+  color: white;
+  background-color: rgb(40, 44, 52);
+
+  th,
+  td,
+  thead th {
+    border-color: black;
+    font-size: 14px;
+  }
+
+  &.table-bordered {
+    border: 0;
+  }
+}
