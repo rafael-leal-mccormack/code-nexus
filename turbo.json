@@ -27,7 +27,7 @@
       "cache": false
     },
     "//#copy": {
-      "dependsOn": []
+      "dependsOn": ["code-nexus-react#build:nexus:react"]
     },
     "lint": {}
   }
