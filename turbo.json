@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "build:nexus": {
       "outputs": ["dist/**"],
       "inputs": ["src/**/*"]
@@ -16,12 +16,12 @@
       "dependsOn": ["code-nexus#build:nexus"]
     },
     "build:web": {
-      "outputs": ["dist/**", "/www/**"],
+      "outputs": ["dist/**", "www/**"],
       "inputs": ["src/**"],
       "dependsOn": ["code-nexus-react#build:nexus:react", "//#copy"]
     },
     "start:web": {
-      "outputs": ["dist/**", "/www/**"],
+      "outputs": ["dist/**", "www/**"],
       "inputs": ["src/**"],
       "dependsOn": ["code-nexus-react#build:nexus:react", "//#copy"],
       "cache": false
