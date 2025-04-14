@@ -3,12 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
+    <title>Code Nexus Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap"
     />
     <script type="module" src="/build/codenexus.esm.js"></script>
     <script nomodule src="/build/codenexus.js"></script>
@@ -17,6 +21,8 @@
         height: 100%;
         margin: 0px;
         box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
       }
 
       body {
@@ -26,32 +32,331 @@
       .hide {
         display: none;
       }
+
+      .demo-header {
+        margin-bottom: 1.5rem;
+      }
+      
+      .demo-header h1 {
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+      }
+      
+      .demo-header p {
+        color: #4a5568;
+        max-width: 800px;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      button {
+        padding: 0.6rem 1.2rem;
+        background-color: #4a5568;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+        background-color: #2d3748;
+        transform: translateY(-1px);
+      }
+
+      button:active {
+        background-color: #1a202c;
+        transform: translateY(0);
+      }
+      
+      button.active {
+        background-color: #2d3748;
+        border-left: 4px solid #48bb78;
+      }
+
+      .demo-section {
+        margin-bottom: 2rem;
+      }
+      
+      .demo-section h2 {
+        margin-bottom: 1rem;
+        color: #2d3748;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .demo-section h2::before {
+        content: "";
+        display: inline-block;
+        width: 4px;
+        height: 24px;
+        background-color: #48bb78;
+        border-radius: 2px;
+      }
+
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .templates-header {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .template-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Styling for templates demo section */
+      .template-section {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .template-section h3 {
+        color: #2d3748;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .template-section p {
+        color: #4a5568;
+        margin-bottom: 1rem;
+      }
+
+      /* Templates Demo section */
+      #templates-demo > p {
+        margin-bottom: 1.5rem;
+        color: #4a5568;
+        max-width: 800px;
+      }
     </style>
   </head>
   <body>
-    <button id="show-nexus" style="margin-bottom: 8px">Nexus</button>
-    <button id="show-panels">Panels</button>
-    <code-nexus class="show"></code-nexus>
-    <nexus-panel class="hide" style="max-height: 500px" panel-name="Javascript hehe"></nexus-panel>
+    <div class="demo-header">
+      <h1>Code Nexus Demo</h1>
+      <p>Explore the capabilities of the Code Nexus component library with our updated modern styling, copy functionality, and template support.</p>
+    </div>
+
+    <div class="button-container">
+      <button id="show-nexus" class="active">Full Editor</button>
+      <button id="show-panels">Panel Components</button>
+      <button id="show-templates">Templates</button>
+      <button id="show-copy-buttons">Copy Button Options</button>
+    </div>
+
+    <!-- Full Code Nexus Editor -->
+    <div id="nexus-demo" class="demo-section show">
+      <h2>Code Nexus Editor</h2>
+      <code-nexus></code-nexus>
+    </div>
+
+    <!-- Nexus Panels -->
+    <div id="panels-demo" class="demo-section hide">
+      <h2>Nexus Panels</h2>
+      <div class="panel-grid">
+        <nexus-panel 
+          panel-name="HTML Panel" 
+          type="html" 
+          content="<h1>Hello World</h1>\n<p>This is a Nexus Panel demo</p>"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="CSS Panel" 
+          type="css" 
+          content="h1 {\n  color: blue;\n}\n\np {\n  font-style: italic;\n}"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="JavaScript Panel" 
+          type="js" 
+          content="// This is a JavaScript panel\nconsole.log('Hello from Nexus Panel');\n\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\ngreet('World');"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="Read-only JavaScript" 
+          type="js" 
+          content="// This panel is read-only\nconst numbers = [1, 2, 3, 4, 5];\n\nnumbers.map(num => num * 2).filter(num => num > 5);" 
+          readonly="true"
+        ></nexus-panel>
+      </div>
+    </div>
+
+    <!-- Templates Demo -->
+    <div id="templates-demo" class="demo-section hide">
+      <h2>Templates Demo</h2>
+      <p>Code Nexus provides two ways to use templates: the built-in templating mechanism via component properties, or direct content manipulation.</p>
+      
+      <div class="template-section">
+        <h3>Method 1: Using Built-in Template Support</h3>
+        <p>The component has a built-in template system that can be enabled with the <code>enable-templates</code> property and passing an array of template objects to the <code>templates</code> property. This renders template buttons in the footer.</p>
+        <code-nexus id="builtin-template-nexus" enable-templates="true"></code-nexus>
+      </div>
+      
+      <div class="template-section">
+        <h3>Method 2: Manual Template Application</h3>
+        <p>You can also manually set the HTML, CSS, and JavaScript content directly on the component when a template is selected:</p>
+        <div class="template-controls">
+          <button id="template-hello">Hello World</button>
+          <button id="template-counter">Counter</button>
+          <button id="template-todo">Todo App</button>
+        </div>
+        <code-nexus id="template-nexus"></code-nexus>
+      </div>
+    </div>
+    
+    <!-- Copy Button Options -->
+    <div id="copy-buttons-demo" class="demo-section hide">
+      <h2>Copy Button Options</h2>
+      <div class="panel-grid">
+        <nexus-panel 
+          panel-name="With Copy Button (Default)" 
+          type="js" 
+          content="// This panel has the default copy button\nconst message = 'Copy me!';\nconsole.log(message);"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="Without Copy Button" 
+          type="js" 
+          content="// This panel has the copy button disabled\nconst message = 'You cannot copy me!';\nconsole.log(message);" 
+          show-copy-button="false"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="Quick Feedback (500ms)" 
+          type="js" 
+          content="// This panel shows 'Copied!' for 500ms\nconst quickFeedback = true;\nconsole.log('Short feedback time');" 
+          copy-success-timeout="500"
+        ></nexus-panel>
+        
+        <nexus-panel 
+          panel-name="Long Feedback (4000ms)" 
+          type="js" 
+          content="// This panel shows 'Copied!' for 4 seconds\nconst longFeedback = true;\nconsole.log('Long feedback time');" 
+          copy-success-timeout="4000"
+        ></nexus-panel>
+      </div>
+    </div>
+
     <script>
       const showNexusButton = document.querySelector('#show-nexus');
       const showPanelsButton = document.querySelector('#show-panels');
-      const nexus = document.querySelector('code-nexus');
-      const panel = document.querySelector('nexus-panel');
+      const showTemplatesButton = document.querySelector('#show-templates');
+      const showCopyButtonsButton = document.querySelector('#show-copy-buttons');
+      
+      const nexusDemo = document.querySelector('#nexus-demo');
+      const panelsDemo = document.querySelector('#panels-demo');
+      const templatesDemo = document.querySelector('#templates-demo');
+      const copyButtonsDemo = document.querySelector('#copy-buttons-demo');
+      
+      // Section navigation
+      function showSection(section, activeButton) {
+        // Hide all sections
+        [nexusDemo, panelsDemo, templatesDemo, copyButtonsDemo].forEach(el => {
+          el.classList.add('hide');
+          el.classList.remove('show');
+        });
+        
+        // Remove active class from all buttons
+        [showNexusButton, showPanelsButton, showTemplatesButton, showCopyButtonsButton].forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Show selected section and mark button as active
+        section.classList.remove('hide');
+        section.classList.add('show');
+        activeButton.classList.add('active');
+      }
 
-      showNexusButton.addEventListener('click', () => {
-        nexus.classList.add('show');
-        nexus.classList.remove('hide')
-        panel.classList.remove('show')
-        panel.classList.add('hide')
-      })
+      showNexusButton.addEventListener('click', () => showSection(nexusDemo, showNexusButton));
+      showPanelsButton.addEventListener('click', () => showSection(panelsDemo, showPanelsButton));
+      showTemplatesButton.addEventListener('click', () => showSection(templatesDemo, showTemplatesButton));
+      showCopyButtonsButton.addEventListener('click', () => showSection(copyButtonsDemo, showCopyButtonsButton));
 
-      showPanelsButton.addEventListener('click', () => {
-        panel.classList.add('show');
-        panel.classList.remove('hide')
-        nexus.classList.remove('show')
-        nexus.classList.add('hide')
-      })
+      // Templates
+      const templateNexus = document.querySelector('#template-nexus');
+      const builtinTemplateNexus = document.querySelector('#builtin-template-nexus');
+      const templateHelloBtn = document.querySelector('#template-hello');
+      const templateCounterBtn = document.querySelector('#template-counter');
+      const templateTodoBtn = document.querySelector('#template-todo');
+      
+      // Template data for manual application
+      const templates = {
+        hello: {
+          html: "<h1>Hello World</h1>\n<p>Welcome to Code Nexus</p>",
+          css: "h1 {\n  color: #3182ce;\n  font-family: sans-serif;\n}\n\np {\n  font-style: italic;\n  color: #4a5568;\n}",
+          javascript: "console.log('Hello World template loaded');"
+        },
+        counter: {
+          html: "<div class=\"counter-container\">\n  <h2>Counter Example</h2>\n  <p>Current count: <span id=\"count\">0</span></p>\n  <button id=\"counter-btn\">Increment</button>\n</div>",
+          css: ".counter-container {\n  font-family: sans-serif;\n  max-width: 300px;\n  margin: 2rem auto;\n  padding: 1.5rem;\n  border-radius: 8px;\n  background-color: #f7fafc;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n  text-align: center;\n}\n\nh2 {\n  color: #2d3748;\n  margin-top: 0;\n}\n\nbutton {\n  padding: 0.5rem 1rem;\n  background: #4299e1;\n  color: white;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  font-size: 1rem;\n  transition: background 0.2s;\n}\n\nbutton:hover {\n  background: #3182ce;\n}\n\n#count {\n  font-weight: bold;\n  color: #3182ce;\n}",
+          javascript: "// Counter functionality\nlet count = 0;\nconst btn = document.getElementById('counter-btn');\nconst countDisplay = document.getElementById('count');\n\nbtn.addEventListener('click', () => {\n  count++;\n  countDisplay.textContent = count;\n  \n  // Add a little animation\n  countDisplay.style.transform = 'scale(1.2)';\n  setTimeout(() => {\n    countDisplay.style.transform = 'scale(1)';\n  }, 200);\n});"
+        },
+        todo: {
+          html: "<div class=\"todo-app\">\n  <h2>Todo List</h2>\n  <div class=\"todo-input-container\">\n    <input id=\"todo-input\" placeholder=\"Add a task...\" />\n    <button id=\"add-todo\">Add</button>\n  </div>\n  <ul id=\"todo-list\"></ul>\n</div>",
+          css: ".todo-app {\n  max-width: 500px;\n  margin: 0 auto;\n  font-family: sans-serif;\n  padding: 1.5rem;\n  border-radius: 8px;\n  background-color: #f7fafc;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}\n\nh2 {\n  margin-top: 0;\n  color: #2d3748;\n  text-align: center;\n}\n\n.todo-input-container {\n  display: flex;\n  margin-bottom: 1rem;\n}\n\ninput {\n  padding: 0.6rem;\n  flex: 1;\n  border: 1px solid #e2e8f0;\n  border-radius: 4px 0 0 4px;\n  font-size: 1rem;\n}\n\n.todo-input-container button {\n  padding: 0.6rem 1rem;\n  background: #4299e1;\n  color: white;\n  border: none;\n  border-radius: 0 4px 4px 0;\n  cursor: pointer;\n  font-size: 1rem;\n}\n\nul {\n  padding: 0;\n  list-style: none;\n}\n\nli {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0.75rem;\n  margin-bottom: 0.5rem;\n  background: #edf2f7;\n  border-radius: 4px;\n  border-left: 3px solid #4299e1;\n}\n\nli button {\n  background: #f56565;\n  color: white;\n  border: none;\n  border-radius: 4px;\n  padding: 0.3rem 0.6rem;\n  cursor: pointer;\n}\n\n.completed {\n  text-decoration: line-through;\n  opacity: 0.6;\n  border-left-color: #48bb78;\n}",
+          javascript: "document.addEventListener('DOMContentLoaded', () => {\n  const input = document.getElementById('todo-input');\n  const addBtn = document.getElementById('add-todo');\n  const list = document.getElementById('todo-list');\n\n  // Add a new todo item\n  function addTodo() {\n    const text = input.value.trim();\n    if (text === '') return;\n    \n    const li = document.createElement('li');\n    li.innerHTML = `\n      <div>\n        <input type=\"checkbox\" class=\"todo-checkbox\">\n        <span>${text}</span>\n      </div>\n      <button class=\"delete\">Delete</button>\n    `;\n    \n    list.appendChild(li);\n    input.value = '';\n    \n    // Add event listeners to the new elements\n    const checkbox = li.querySelector('.todo-checkbox');\n    checkbox.addEventListener('change', () => {\n      li.classList.toggle('completed');\n    });\n    \n    li.querySelector('.delete').addEventListener('click', () => {\n      li.remove();\n    });\n  }\n\n  // Add todo when clicking the button\n  addBtn.addEventListener('click', addTodo);\n  \n  // Add todo when pressing Enter in the input field\n  input.addEventListener('keypress', (e) => {\n    if (e.key === 'Enter') {\n      addTodo();\n    }\n  });\n});"
+        }
+      };
+      
+      // Convert the template object to an array for the built-in functionality
+      const templatesArray = [
+        {
+          name: "Hello World",
+          html: templates.hello.html,
+          css: templates.hello.css,
+          javascript: templates.hello.javascript
+        },
+        {
+          name: "Counter",
+          html: templates.counter.html,
+          css: templates.counter.css,
+          javascript: templates.counter.javascript
+        },
+        {
+          name: "Todo App",
+          html: templates.todo.html,
+          css: templates.todo.css,
+          javascript: templates.todo.javascript
+        }
+      ];
+      
+      // Set up the built-in template mechanism
+      builtinTemplateNexus.templates = templatesArray;
+      
+      // Set up template buttons for the manual approach
+      templateHelloBtn.addEventListener('click', async () => {
+        const template = templates.hello;
+        await templateNexus.loadTemplate(template);
+      });
+      
+      templateCounterBtn.addEventListener('click', async () => {
+        const template = templates.counter;
+        await templateNexus.loadTemplate(template);
+      });
+      
+      templateTodoBtn.addEventListener('click', async () => {
+        const template = templates.todo;
+        await templateNexus.loadTemplate(template);
+      });
     </script>
   </body>
 </html>

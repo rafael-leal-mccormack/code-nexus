@@ -1,56 +1,95 @@
+@import '../../global/global.scss';
+
 :host {
-  display: inline-flex;
-  color: inherit;
-  /* Style the tab */
-  .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: inherit;
-    color: inherit;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 3px;
-  }
-
-  /* Style the buttons that are used to open the tab content */
-  .tab {
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-  }
-
-  /* Change background color of buttons on hover */
-  .tab:hover {
-    background-color: #ddd;
-  }
-
-  /* Create an active/current tablink class */
-  .tab:active {
-    background-color: #ccc;
-  }
+  display: block;
 }
 
-:host(.theme-dark) {
-    /* Change background color of buttons on hover */
-    .tab:hover {
-      background-color: rgba(255,255,255,0.4);
-    }
+:host(.nexus-tab) {
+  height: 100%;
   
-    /* Create an active/current tablink class */
-    .tab:active {
-      background-color: rgba(255,255,255,0.2);
+  .tab {
+    background: none;
+    color: inherit;
+    font-family: $font-family;
+    border: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    border-radius: 4px 4px 0 0;
+    
+    .tab-icon {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.3);
+      outline-offset: -2px;
+    }
+  }
 }
 
 :host(.nexus-tab-active) {
   .tab {
-    border-bottom: 3px solid grey;
-    margin-bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.1);
+    
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background-color: currentColor;
+    }
   }
 }
 
-:host(.theme-dark.nexus-tab-active) {
+:host(.nexus-tab-disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  
   .tab {
-    border-bottom: 3px solid white;
+    cursor: not-allowed;
+  }
+}
+
+:host(.theme-dark) {
+  color: rgba(255, 255, 255, 0.8);
+  
+  &.nexus-tab-active {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+:host(.theme-light) {
+  color: rgba(0, 0, 0, 0.6);
+  
+  .tab {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+  
+  &.nexus-tab-active {
+    color: rgba(0, 0, 0, 0.9);
+    
+    .tab {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
   }
 }

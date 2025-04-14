@@ -1,4 +1,4 @@
-import { Component, Element, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Host, Prop, State, Watch, h, Event, EventEmitter, Method } from '@stencil/core';
 import { basicSetup } from 'codemirror';
 import { EditorView } from '@codemirror/view';
 import { Compartment, EditorState } from '@codemirror/state';
@@ -159,6 +159,25 @@ export class CodeNexus {
     this.editorSplitInstance = Split([this.htmlEditorContainer, this.cssEditorContainer, this.jsEditorContainer], { minSize: 0, direction: 'vertical' });
   }
 
+  /**
+   * Event emitted when any editor content changes
+   */
+  @Event() contentChange: EventEmitter<{
+    html: string;
+    css: string;
+    javascript: string;
+  }>;
+
+  /**
+   * Ability to load example/starter templates
+   */
+  @Prop() enableTemplates = false;
+
+  /**
+   * Custom starter templates for quick loading
+   */
+  @Prop() templates: { name: string; html: string; css: string; javascript: string }[] = [];
+
   updateLiveContent = (html, css, javascript) => {
     this.html = html;
     this.css = css;
@@ -166,7 +185,13 @@ export class CodeNexus {
 
     // prepare the iframe
     this.prepareContentContainer(this.liveContentFrame);
-    //call event
+    
+    // Emit content change event
+    this.contentChange.emit({
+      html,
+      css,
+      javascript
+    });
   };
 
   debouncedUpdate = debounce(this.updateLiveContent, this.debounceTime);
@@ -220,6 +245,63 @@ export class CodeNexus {
 
     contentHost.contentWindow.document.close();
   }
+
+  exportToFile = () => {
+    // Create a blob with the HTML content
+    const fullHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+${this.css}
+  </style>
+</head>
+<body>
+${this.html}
+<script>
+${this.javascript}
+</script>
+</body>
+</html>`;
+
+    const blob = new Blob([fullHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    
+    // Create a download link and trigger it
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'code-nexus-export.html';
+    a.click();
+    
+    // Clean up
+    URL.revokeObjectURL(url);
+  };
+
+  /**
+   * Load a template into the editor
+   * @param template The template object containing html, css, and javascript content
+   */
+  @Method()
+  async loadTemplate(template: { html: string; css: string; javascript: string }) {
+    this.html = template.html;
+    this.css = template.css;
+    this.javascript = template.javascript;
+    
+    // Update editors with new content
+    this.htmlEditor.dispatch({
+      changes: { from: 0, to: this.htmlEditor.state.doc.length, insert: template.html }
+    });
+    
+    this.cssEditor.dispatch({
+      changes: { from: 0, to: this.cssEditor.state.doc.length, insert: template.css }
+    });
+    
+    this.jsEditor.dispatch({
+      changes: { from: 0, to: this.jsEditor.state.doc.length, insert: template.javascript }
+    });
+    
+    this.updateLiveContent(template.html, template.css, template.javascript);
+  };
 
   render() {
     return (
@@ -356,7 +438,20 @@ export class CodeNexus {
             >
               <div class="button-text">Full page</div>
             </button>
+            <button class="nexus-button" onClick={this.exportToFile}>
+              <div class="button-text">Export</div>
+            </button>
           </div>
+          {this.enableTemplates && this.templates.length > 0 && (
+            <div class="template-selector">
+              <span>Templates: </span>
+              {this.templates.map(template => (
+                <button class="nexus-button" onClick={() => this.loadTemplate(template)}>
+                  <div class="button-text">{template.name}</div>
+                </button>
+              ))}
+            </div>
+          )}
         </section>
       </Host>
     );

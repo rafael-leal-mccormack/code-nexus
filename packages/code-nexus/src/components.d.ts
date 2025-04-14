@@ -17,15 +17,28 @@ export namespace Components {
          */
         "debounceTime": number;
         /**
+          * Ability to load example/starter templates
+         */
+        "enableTemplates": boolean;
+        /**
           * Hides the live editor containers
          */
         "hideEditors": boolean;
         "html": string;
         "javascript": string;
         /**
+          * Load a template into the editor
+          * @param template The template object containing html, css, and javascript content
+         */
+        "loadTemplate": (template: { html: string; css: string; javascript: string; }) => Promise<void>;
+        /**
           * Switches from split view to a tabbed view
          */
         "tabbed": boolean;
+        /**
+          * Custom starter templates for quick loading
+         */
+        "templates": { name: string; html: string; css: string; javascript: string }[];
         "theme": {
     colors: Colors;
     dark: boolean;
@@ -33,8 +46,24 @@ export namespace Components {
     }
     interface NexusPanel {
         "content": string;
+        /**
+          * Copy button success timeout in ms
+         */
+        "copySuccessTimeout": number;
+        /**
+          * Whether to enable syntax highlighting
+         */
+        "enableSyntaxHighlighting": boolean;
         "panelName": string;
         "readonly": boolean;
+        /**
+          * Whether to show the copy button
+         */
+        "showCopyButton": boolean;
+        /**
+          * Whether to show line numbers
+         */
+        "showLineNumbers": boolean;
         "theme": {
     colors: Colors;
     dark: boolean;
@@ -43,17 +72,63 @@ export namespace Components {
     }
     interface NexusTab {
         "active": boolean;
+        /**
+          * Whether the tab is disabled
+         */
+        "disabled": boolean;
+        /**
+          * Optional icon to display in the tab
+         */
+        "icon"?: string;
         "onDark": boolean;
+        /**
+          * Tooltip text for the tab
+         */
+        "tooltip"?: string;
     }
 }
+export interface CodeNexusCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCodeNexusElement;
+}
+export interface NexusPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLNexusPanelElement;
+}
 declare global {
+    interface HTMLCodeNexusElementEventMap {
+        "contentChange": {
+    html: string;
+    css: string;
+    javascript: string;
+  };
+    }
     interface HTMLCodeNexusElement extends Components.CodeNexus, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLCodeNexusElementEventMap>(type: K, listener: (this: HTMLCodeNexusElement, ev: CodeNexusCustomEvent<HTMLCodeNexusElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLCodeNexusElementEventMap>(type: K, listener: (this: HTMLCodeNexusElement, ev: CodeNexusCustomEvent<HTMLCodeNexusElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLCodeNexusElement: {
         prototype: HTMLCodeNexusElement;
         new (): HTMLCodeNexusElement;
     };
+    interface HTMLNexusPanelElementEventMap {
+        "panelContentChange": string;
+    }
     interface HTMLNexusPanelElement extends Components.NexusPanel, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLNexusPanelElementEventMap>(type: K, listener: (this: HTMLNexusPanelElement, ev: NexusPanelCustomEvent<HTMLNexusPanelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLNexusPanelElementEventMap>(type: K, listener: (this: HTMLNexusPanelElement, ev: NexusPanelCustomEvent<HTMLNexusPanelElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLNexusPanelElement: {
         prototype: HTMLNexusPanelElement;
@@ -79,15 +154,31 @@ declare namespace LocalJSX {
          */
         "debounceTime"?: number;
         /**
+          * Ability to load example/starter templates
+         */
+        "enableTemplates"?: boolean;
+        /**
           * Hides the live editor containers
          */
         "hideEditors"?: boolean;
         "html"?: string;
         "javascript"?: string;
         /**
+          * Event emitted when any editor content changes
+         */
+        "onContentChange"?: (event: CodeNexusCustomEvent<{
+    html: string;
+    css: string;
+    javascript: string;
+  }>) => void;
+        /**
           * Switches from split view to a tabbed view
          */
         "tabbed"?: boolean;
+        /**
+          * Custom starter templates for quick loading
+         */
+        "templates"?: { name: string; html: string; css: string; javascript: string }[];
         "theme"?: {
     colors: Colors;
     dark: boolean;
@@ -95,8 +186,28 @@ declare namespace LocalJSX {
     }
     interface NexusPanel {
         "content"?: string;
+        /**
+          * Copy button success timeout in ms
+         */
+        "copySuccessTimeout"?: number;
+        /**
+          * Whether to enable syntax highlighting
+         */
+        "enableSyntaxHighlighting"?: boolean;
+        /**
+          * Event emitted when content changes
+         */
+        "onPanelContentChange"?: (event: NexusPanelCustomEvent<string>) => void;
         "panelName"?: string;
         "readonly"?: boolean;
+        /**
+          * Whether to show the copy button
+         */
+        "showCopyButton"?: boolean;
+        /**
+          * Whether to show line numbers
+         */
+        "showLineNumbers"?: boolean;
         "theme"?: {
     colors: Colors;
     dark: boolean;
@@ -105,7 +216,19 @@ declare namespace LocalJSX {
     }
     interface NexusTab {
         "active"?: boolean;
+        /**
+          * Whether the tab is disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Optional icon to display in the tab
+         */
+        "icon"?: string;
         "onDark"?: boolean;
+        /**
+          * Tooltip text for the tab
+         */
+        "tooltip"?: string;
     }
     interface IntrinsicElements {
         "code-nexus": CodeNexus;

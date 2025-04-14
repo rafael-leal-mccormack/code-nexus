@@ -12,67 +12,52 @@
 
   //toggle styles
   font-family: $font-family;
-  overflow: hidden;
   position: relative;
   display: inline-flex;
-  padding: 0.625rem 0.5rem;
+  padding: 0.625rem 0.75rem;
   line-height: 24px;
-  border: 1px solid grey;
   gap: 0.25rem;
-  border-right: 0;
-
-  &:hover::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.2);
-    left: 0;
+  align-items: center;
+  
+  // Modern styling
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
-  &:focus::after {
-    content: '';
-    position: absolute;
-    height: calc(100% - 4px);
-    width: calc(100% - 4px);
-    top: 0px;
-    left: 0px;
-    border-radius: 1rem;
-    border: 2px solid white;
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
   }
 }
 
 
 .toggle-button:first-child {
-  border-radius: 1rem 0 0 1rem;
+  border-radius: 6px 0 0 6px;
 }
 
 .toggle-button:last-child {
-  border-radius: 0 1rem 1rem 0;
-  border-right: 1px solid grey;
+  border-radius: 0 6px 6px 0;
 }
 
 .toggle-button.toggle-button-active {
-  &::before {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    left: 0;
-  }
+  background-color: rgba(255, 255, 255, 0.15);
   font-weight: 500;
-}
-
-.toggle-button.toggle-button-active::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  left: 0;
+  position: relative;
+  
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    opacity: 0.7;
+  }
 }
 
 :host(.code-nexus-dark-theme) {
@@ -80,5 +65,13 @@
 
   svg {
     fill: white
+  }
+}
+
+:host(.code-nexus-light-theme) {
+  color: #333;
+
+  svg {
+    fill: #333
   }
 }

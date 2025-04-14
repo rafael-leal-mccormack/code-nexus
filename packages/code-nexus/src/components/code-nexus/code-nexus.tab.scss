@@ -1,5 +1,10 @@
 .nexus-view-toggle {
   display: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+  margin-bottom: -1px;
+  padding: 0.25rem;
 }
 
 .toggles-visible {
@@ -9,5 +14,11 @@
 :host(.code-nexus-dark-theme) {
   .nexus-view-toggle {
     color: white;
+  }
+}
+
+:host(.code-nexus-light-theme) {
+  .nexus-view-toggle {
+    color: #333;
   }
 }
