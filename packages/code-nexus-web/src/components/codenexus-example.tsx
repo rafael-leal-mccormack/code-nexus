@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
         css={css}
         javascript={javascript}
         onContentChange={handleContentChange}
-        tabbed={true}
         style={{ maxHeight: "90vh", flex: 1 }}
       />
     </div>
