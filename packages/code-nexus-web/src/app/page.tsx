@@ -63,8 +63,6 @@ export default function Home() {
       <div className="my-16 px-4 md:px-8">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Resources</h2>
         <div className="flex flex-wrap gap-6 justify-center">
-          <OutlinedCard heading="Quick Start">{quickStartText}</OutlinedCard>
-          <OutlinedCard heading="Features">{featuresText}</OutlinedCard>
           <OutlinedCard href="/components" heading="Components">{componentsText}</OutlinedCard>
           <OutlinedCard heading="Release Notes">{releaseNotes}</OutlinedCard>
           <OutlinedCard
@@ -98,11 +96,6 @@ const featuresText = `Explore the powerful capabilities that Nexus brings to you
 development toolkit. From real-time collaboration to seamless code
 snippet management, discover the features that make Nexus the go-to
 choice for embedding a dynamic code editor in any application.`;
-const componentsText = `Dive into the heart of Nexus with detailed documentation on its core
-components—the nexus code editor and the nexus-panel for efficient
-code snippet handling.`;
-const releaseNotes = `v0.0.1 - Beta`;
-const contributingText = `Join the Nexus community! Contribute to the growth of this open-source
-project by exploring our contribution guidelines. Whether it's
-reporting issues, suggesting improvements, or submitting code, your
-contributions are invaluable in shaping the future of Nexus.`;
+const componentsText = `Detailed docs on <code-nexus>, <nexus-panel>, and <nexus-snippet>. Learn how to use each component effectively.`;
+const releaseNotes = `v0.0.3 - Formatting, Bundle Size, Theming Docs. Key changes: Added code formatting (optional Prettier). Reduced package size via optimized builds. Added /theming docs page. Modernized UI styles. Updated READMEs and package links.`;
+const contributingText = `Help shape Code Nexus! Find contribution guidelines, report issues, or suggest improvements on GitHub.`;

@@ -1,7 +1,56 @@
 import { readFileSync } from "fs";
 import Link from "next/link";
+import CodeSnippet from "@/components/code-snippet";
 
 export default function GettingStarted() {
+  // Define code examples as constants
+  const installNexus = `npm install code-nexus`;
+  const installNexusReact = `npm install code-nexus-react code-nexus`; // Also need core package
+  const fontLink = `<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />`;
+  const reactUsage = `import { CodeNexus } from "code-nexus-react";
+
+function App() {
+  return (
+    <CodeNexus 
+      html="<h1>Hello World</h1>"
+      css="h1 { color: blue; }"
+      javascript="console.log('Hello from Code Nexus');"
+    />
+  );
+}`;
+  const vanillaUsage = `<script type="module">
+  import { defineCustomElements } from 'code-nexus/loader';
+  defineCustomElements();
+</script>
+
+<code-nexus
+  html="<h1>Hello World</h1>"
+  css="h1 { color: blue; }"
+  javascript="console.log('Hello from Code Nexus');"
+></code-nexus>`;
+  const templatesUsage = `<code-nexus
+  enable-templates="true"
+  templates={[
+    {
+      name: "Hello World",
+      html: "<h1>Hello</h1>",
+      css: "h1 { color: blue }",
+      javascript: "console.log('Hello');"
+    }
+  ]}
+></code-nexus>`;
+  const customizationUsage = `<code-nexus
+  tabbed="true"
+  debounce-time="500"
+  theme={{
+    // Assuming customColors is defined elsewhere
+    colors: customColors, 
+    dark: false 
+  }}
+></code-nexus>`;
+
   return (
     <div className="w-full max-w-6xl mx-auto pb-16">
       {/* Header */}
@@ -21,33 +70,25 @@ export default function GettingStarted() {
           
           <h3 className="text-xl font-bold mb-4 text-white">1. Install the packages</h3>
           <p className="text-gray-300 mb-4">
-            Choose the package that fits your needs:
+            Choose the package that fits your needs (Core `code-nexus` is required for React wrapper):
           </p>
           
           <div className="mb-8">
-            <h4 className="text-lg font-semibold mb-2 text-gray-200">For vanilla JS projects:</h4>
-            <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-              <pre><code className="text-gray-300">npm install code-nexus</code></pre>
-            </div>
+            <h4 className="text-lg font-semibold mb-2 text-gray-200">Vanilla JS / Core:</h4>
+            <CodeSnippet code={installNexus} theme="dark" />
           </div>
           
           <div className="mb-8">
-            <h4 className="text-lg font-semibold mb-2 text-gray-200">For React projects:</h4>
-            <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-              <pre><code className="text-gray-300">npm install code-nexus-react</code></pre>
-            </div>
+            <h4 className="text-lg font-semibold mb-2 text-gray-200">React:</h4>
+            <CodeSnippet code={installNexusReact} theme="dark" />
           </div>
 
           <h3 className="text-xl font-bold mb-4 text-white">2. Add Font (Recommended)</h3>
           <p className="text-gray-300 mb-4">
-            It&apos;s recommended to install the Roboto font for the best experience:
+            Include the Roboto font in your HTML head for the best experience:
           </p>
           
-          <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto mb-8">
-            <pre><code className="text-gray-300">{`<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />`}</code></pre>
-          </div>
+          <CodeSnippet code={fontLink} language="html" theme="dark" />
         </div>
       </section>
 
@@ -62,19 +103,7 @@ export default function GettingStarted() {
               Import and use the CodeNexus component in your React application:
             </p>
             
-            <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-              <pre><code className="text-gray-300">{`import { CodeNexus } from "code-nexus-react";
-
-function App() {
-  return (
-    <CodeNexus 
-      html="<h1>Hello World</h1>"
-      css="h1 { color: blue; }"
-      javascript="console.log(&apos;Hello from Code Nexus&apos;);"
-    />
-  );
-}`}</code></pre>
-            </div>
+            <CodeSnippet code={reactUsage} language="js" theme="dark" />
           </div>
           
           <div className="mb-8">
@@ -83,18 +112,7 @@ function App() {
               Use as a web component in any HTML page:
             </p>
             
-            <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-              <pre><code className="text-gray-300">{`<script type="module">
-  import { defineCustomElements } from &apos;code-nexus/loader&apos;;
-  defineCustomElements();
-</script>
-
-<code-nexus
-  html="<h1>Hello World</h1>"
-  css="h1 { color: blue; }"
-  javascript="console.log(&apos;Hello from Code Nexus&apos;);"
-></code-nexus>`}</code></pre>
-            </div>
+            <CodeSnippet code={vanillaUsage} language="html" theme="dark" />
           </div>
         </div>
       </section>
@@ -110,36 +128,15 @@ function App() {
               <p className="text-gray-300 mb-4">
                 Create and use custom templates for quick code snippets:
               </p>
-              <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-                <pre><code className="text-gray-300">{`<code-nexus
-  enable-templates="true"
-  templates={[
-    {
-      name: "Hello World",
-      html: "<h1>Hello</h1>",
-      css: "h1 { color: blue }",
-      javascript: "console.log(&apos;Hello&apos;);"
-    }
-  ]}
-></code-nexus>`}</code></pre>
-              </div>
+              <CodeSnippet code={templatesUsage} language="html" theme="dark" />
             </div>
             
             <div>
               <h3 className="text-xl font-bold mb-4 text-white">Customization</h3>
               <p className="text-gray-300 mb-4">
-                Customize the appearance and behavior:
+                Customize the appearance and behavior (theme, layout, etc.):
               </p>
-              <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-                <pre><code className="text-gray-300">{`<code-nexus
-  tabbed="true"
-  debounce-time="500"
-  theme={{ 
-    colors: customColors, 
-    dark: false 
-  }}
-></code-nexus>`}</code></pre>
-              </div>
+              <CodeSnippet code={customizationUsage} language="html" theme="dark" />
             </div>
           </div>
         </div>
