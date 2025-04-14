@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "codeNexus",
+  title: "CodeNexus",
   description: "Framework agnostic code sandbox",
 };
 
@@ -35,7 +35,7 @@ export default function RootLayout({
           <div className="app-background absolute bg-slate-300 w-full h-full top-0 left-0 opacity-40 -z-10"></div>
           <Header></Header>
           <main className="flex relative min-h-0 flex-col">
-            <section className="flex flex-col gap-6 center items-center p-4 md:px-14 sm:px-12 overflow-auto">
+            <section className="flex flex-col gap-6 center items-center p-12 md:px-14 sm:px-12 overflow-auto">
               {children}
             </section>
           </main>

@@ -52,34 +52,120 @@ body {
   border-radius: 50%;
 }
 
-
 /**
 * Styles for property table
 */
 table {
   color: inherit;
+}
 
-  th,
-  td,
-  thead th,
-  tbody + tbody {
-    border-color: black;
-  }
+table th,
+table td,
+table thead th,
+table tbody + tbody {
+  border-color: black;
 }
 
 /* _tables.scss:132 */
 table {
   color: white;
   background-color: rgb(40, 44, 52);
+}
 
-  th,
-  td,
-  thead th {
-    border-color: black;
-    font-size: 14px;
-  }
+table th,
+table td,
+table thead th {
+  border-color: black;
+  font-size: 14px;
+}
 
-  &.table-bordered {
-    border: 0;
-  }
+table.table-bordered {
+  border: 0;
+}
+
+/* Code highlighting styles */
+pre {
+  position: relative;
+  background-color: #1a202c;
+  border-radius: 0.5rem;
+  overflow: auto;
+}
+
+code.language-jsx {
+  color: #f8f8f2;
+  display: block;
+  font-family: 'Roboto Mono', monospace;
+  line-height: 1.5;
+}
+
+/* Syntax colors for code blocks */
+pre .token.comment { color: #6272a4; }
+pre .token.string { color: #f1fa8c; }
+pre .token.property { color: #bd93f9; }
+pre .token.keyword { color: #ff79c6; }
+pre .token.function { color: #50fa7b; }
+pre .token.punctuation { color: #f8f8f2; }
+pre .token.operator { color: #ff79c6; }
+pre .token.variable { color: #f8f8f2; }
+pre .token.tag { color: #ff79c6; }
+pre .token.attr-name { color: #50fa7b; }
+pre .token.attr-value { color: #f1fa8c; }
+
+/* Component documentation table styles */
+.component-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.component-table th {
+  background-color: rgba(59, 130, 246, 0.15);
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  color: #f0f0f0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.component-table tr:nth-child(even) {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+.component-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  color: #e2e8f0;
+}
+
+.component-table td:first-child {
+  font-family: 'Roboto Mono', monospace;
+  color: #93c5fd;
+  font-weight: 500;
+}
+
+.component-table td:nth-child(2) {
+  color: #cbd5e1;
+}
+
+.component-table td:nth-child(3) {
+  font-family: 'Roboto Mono', monospace;
+  color: #a5b4fc;
+  font-size: 0.9rem;
+}
+
+.component-table td:last-child {
+  color: #94a3b8;
+}
+
+.component-category {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #93c5fd;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }

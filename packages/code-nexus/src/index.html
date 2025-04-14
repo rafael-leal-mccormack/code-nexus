@@ -142,11 +142,109 @@
         margin-bottom: 1rem;
       }
 
+      /* Formatting Demo styles */
+      .format-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .integration-note {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background-color: #ebf8ff;
+        border-left: 4px solid #4299e1;
+        border-radius: 4px;
+      }
+
+      .integration-note h4 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #2c5282;
+        font-size: 1rem;
+      }
+
+      .integration-note p {
+        margin-bottom: 0.75rem;
+        color: #2c5282;
+        font-size: 0.9rem;
+      }
+
+      .integration-note p:last-child {
+        margin-bottom: 0;
+      }
+
+      .integration-note ol {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        padding-left: 1.25rem;
+        color: #2c5282;
+        font-size: 0.9rem;
+      }
+
+      .integration-note li {
+        margin-bottom: 0.25rem;
+      }
+
+      .integration-note code {
+        background-color: #bee3f8;
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.85rem;
+      }
+
+      .format-btn {
+        padding: 0.5rem 1rem;
+        background-color: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .format-btn:hover {
+        background-color: #3182ce;
+        transform: translateY(-1px);
+      }
+
+      .format-btn:active {
+        background-color: #2c5282;
+        transform: translateY(0);
+      }
+
+      #format-all-btn {
+        background-color: #48bb78;
+      }
+
+      #format-all-btn:hover {
+        background-color: #38a169;
+      }
+
+      #format-all-btn:active {
+        background-color: #2f855a;
+      }
+
       /* Templates Demo section */
       #templates-demo > p {
         margin-bottom: 1.5rem;
         color: #4a5568;
         max-width: 800px;
+      }
+
+      .format-icon {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2;
       }
     </style>
   </head>
@@ -161,6 +259,8 @@
       <button id="show-panels">Panel Components</button>
       <button id="show-templates">Templates</button>
       <button id="show-copy-buttons">Copy Button Options</button>
+      <button id="show-formatting">Formatting</button>
+      <button id="show-snippets">Snippets</button>
     </div>
 
     <!-- Full Code Nexus Editor -->
@@ -188,7 +288,7 @@
         <nexus-panel 
           panel-name="JavaScript Panel" 
           type="js" 
-          content="// This is a JavaScript panel\nconsole.log('Hello from Nexus Panel');\n\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\ngreet('World');"
+          content="// This is a JavaScript panel\nconsole.log(&apos;Hello from Nexus Panel&apos;);\n\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\ngreet(&apos;World&apos;);"
         ></nexus-panel>
         
         <nexus-panel 
@@ -230,29 +330,159 @@
         <nexus-panel 
           panel-name="With Copy Button (Default)" 
           type="js" 
-          content="// This panel has the default copy button\nconst message = 'Copy me!';\nconsole.log(message);"
+          content="// This panel has the default copy button\nconst message = &apos;Copy me!&apos;;\nconsole.log(message);"
         ></nexus-panel>
         
         <nexus-panel 
           panel-name="Without Copy Button" 
           type="js" 
-          content="// This panel has the copy button disabled\nconst message = 'You cannot copy me!';\nconsole.log(message);" 
+          content="// This panel has the copy button disabled\nconst message = &apos;You cannot copy me!&apos;;\nconsole.log(message);" 
           show-copy-button="false"
         ></nexus-panel>
         
         <nexus-panel 
           panel-name="Quick Feedback (500ms)" 
           type="js" 
-          content="// This panel shows 'Copied!' for 500ms\nconst quickFeedback = true;\nconsole.log('Short feedback time');" 
+          content="// This panel shows 'Copied!' for 500ms\nconst quickFeedback = true;\nconsole.log(&apos;Short feedback time&apos;);" 
           copy-success-timeout="500"
         ></nexus-panel>
         
         <nexus-panel 
           panel-name="Long Feedback (4000ms)" 
           type="js" 
-          content="// This panel shows 'Copied!' for 4 seconds\nconst longFeedback = true;\nconsole.log('Long feedback time');" 
+          content="// This panel shows 'Copied!' for 4 seconds\nconst longFeedback = true;\nconsole.log(&apos;Long feedback time&apos;);" 
           copy-success-timeout="4000"
         ></nexus-panel>
+      </div>
+    </div>
+
+    <!-- Formatting Demo -->
+    <div id="formatting-demo" class="demo-section hide">
+      <h2>Code Formatting</h2>
+      <p>This demo shows how you can integrate code formatting capabilities with the CodeNexus component.</p>
+      
+      <div class="template-section">
+        <h3>Format Button Integration</h3>
+        <p>Try editing the code below, then use the format buttons to clean up the code automatically.</p>
+        
+        <div class="integration-note">
+          <h4>Integration Note:</h4>
+          <p>Code Nexus has built-in code formatting capabilities that can be easily enabled in your application. The formatter uses Prettier under the hood to beautify HTML, CSS, and JavaScript code.</p>
+          <p>To enable formatting in your CodeNexus instance:</p>
+          <ol>
+            <li>Set the <code>enable-formatting</code> attribute or <code>enableFormatting</code> property to <code>true</code></li>
+            <li>Optionally configure formatting options with the <code>formatting-options</code> property</li>
+            <li>The "Format All" button will appear in the component&apos;s footer toolbar</li>
+          </ol>
+        </div>
+        
+        <div class="format-controls">
+          <button id="format-all-btn" class="format-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="format-icon">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Format All
+          </button>
+          <button id="format-html-btn" class="format-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="format-icon">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            Format HTML
+          </button>
+          <button id="format-css-btn" class="format-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="format-icon">
+              <circle cx="18" cy="18" r="3"></circle>
+              <circle cx="6" cy="6" r="3"></circle>
+              <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
+              <line x1="6" y1="9" x2="6" y2="21"></line>
+            </svg>
+            Format CSS
+          </button>
+          <button id="format-js-btn" class="format-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="format-icon">
+              <path d="M18 20V10"></path>
+              <path d="M12 20V4"></path>
+              <path d="M6 20v-6"></path>
+            </svg>
+            Format JS
+          </button>
+        </div>
+        
+        <code-nexus id="format-nexus"></code-nexus>
+      </div>
+    </div>
+
+    <!-- Snippets Demo -->
+    <div id="snippets-demo" class="demo-section hide">
+      <h2>Code Snippets</h2>
+      <p>The <code>nexus-snippet</code> component provides inline code formatting with syntax highlighting powered by CodeMirror.</p>
+      
+      <div class="template-section">
+        <h3>Basic Usage</h3>
+        <p>
+          Use the nexus-snippet component to display code inline with proper syntax highlighting: 
+          <nexus-snippet>const message = 'Hello world';</nexus-snippet>
+        </p>
+        <p>
+          It works great for referencing code in documentation or tutorials:
+        </p>
+        <div style="padding: 15px; background-color: #fff; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
+          <p>To fetch data from an API, use <nexus-snippet>fetch('https://api.example.com/data')</nexus-snippet> and handle the response with <nexus-snippet>response.json()</nexus-snippet>.</p>
+          <p>Don't forget to catch errors: <nexus-snippet>.catch(error => console.error(error))</nexus-snippet></p>
+        </div>
+        
+        <h3>Language Examples</h3>
+        <h4>JavaScript</h4>
+        <nexus-snippet>
+const array = [1, 2, 3, 4, 5];
+const doubled = array.map(num => num * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+        </nexus-snippet>
+        
+        <h4>HTML</h4>
+        <nexus-snippet type="html">
+<div class="container">
+  <h1 class="title">Hello World</h1>
+  <p>This is an example</p>
+</div>
+        </nexus-snippet>
+        
+        <h4>CSS</h4>
+        <nexus-snippet type="css">
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+}
+        </nexus-snippet>
+        
+        <h3>Inline Examples by Type</h3>
+        <ul style="line-height: 2">
+          <li>JavaScript: <nexus-snippet>const array = [1, 2, 3].map(n => n * 2);</nexus-snippet></li>
+          <li>HTML with slot: <nexus-snippet type="html" content="<div class='container'></div>"></nexus-snippet></li> 
+          <li>HTML with content prop: <nexus-snippet type="html" content="<div class='wrapper'><h1>Title</h1></div>"></nexus-snippet></li>
+          <li>CSS: <nexus-snippet type="css">.container { display: flex; }</nexus-snippet></li>
+        </ul>
+        
+        <h3>Light Theme</h3>
+        <p>
+          For light-themed interfaces, you can set the theme property:
+        </p>
+        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+          <p>
+            Use <nexus-snippet theme={{ dark: false }}>document.querySelector('.element')</nexus-snippet> to select DOM elements.
+          </p>
+          <p>
+            Style your elements with <nexus-snippet type="css" theme={{ dark: false }}>.element { color: blue; }</nexus-snippet> to make them stand out.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -261,22 +491,26 @@
       const showPanelsButton = document.querySelector('#show-panels');
       const showTemplatesButton = document.querySelector('#show-templates');
       const showCopyButtonsButton = document.querySelector('#show-copy-buttons');
+      const showFormattingButton = document.querySelector('#show-formatting');
+      const showSnippetsButton = document.querySelector('#show-snippets');
       
       const nexusDemo = document.querySelector('#nexus-demo');
       const panelsDemo = document.querySelector('#panels-demo');
       const templatesDemo = document.querySelector('#templates-demo');
       const copyButtonsDemo = document.querySelector('#copy-buttons-demo');
+      const formattingDemo = document.querySelector('#formatting-demo');
+      const snippetsDemo = document.querySelector('#snippets-demo');
       
       // Section navigation
       function showSection(section, activeButton) {
         // Hide all sections
-        [nexusDemo, panelsDemo, templatesDemo, copyButtonsDemo].forEach(el => {
+        [nexusDemo, panelsDemo, templatesDemo, copyButtonsDemo, formattingDemo, snippetsDemo].forEach(el => {
           el.classList.add('hide');
           el.classList.remove('show');
         });
         
         // Remove active class from all buttons
-        [showNexusButton, showPanelsButton, showTemplatesButton, showCopyButtonsButton].forEach(btn => {
+        [showNexusButton, showPanelsButton, showTemplatesButton, showCopyButtonsButton, showFormattingButton, showSnippetsButton].forEach(btn => {
           btn.classList.remove('active');
         });
         
@@ -290,6 +524,8 @@
       showPanelsButton.addEventListener('click', () => showSection(panelsDemo, showPanelsButton));
       showTemplatesButton.addEventListener('click', () => showSection(templatesDemo, showTemplatesButton));
       showCopyButtonsButton.addEventListener('click', () => showSection(copyButtonsDemo, showCopyButtonsButton));
+      showFormattingButton.addEventListener('click', () => showSection(formattingDemo, showFormattingButton));
+      showSnippetsButton.addEventListener('click', () => showSection(snippetsDemo, showSnippetsButton));
 
       // Templates
       const templateNexus = document.querySelector('#template-nexus');
@@ -303,7 +539,7 @@
         hello: {
           html: "<h1>Hello World</h1>\n<p>Welcome to Code Nexus</p>",
           css: "h1 {\n  color: #3182ce;\n  font-family: sans-serif;\n}\n\np {\n  font-style: italic;\n  color: #4a5568;\n}",
-          javascript: "console.log('Hello World template loaded');"
+          javascript: "console.log(&apos;Hello World template loaded&apos;);"
         },
         counter: {
           html: "<div class=\"counter-container\">\n  <h2>Counter Example</h2>\n  <p>Current count: <span id=\"count\">0</span></p>\n  <button id=\"counter-btn\">Increment</button>\n</div>",
@@ -357,6 +593,37 @@
         const template = templates.todo;
         await templateNexus.loadTemplate(template);
       });
+    </script>
+    
+    <script>
+      // Initialize formatting demo
+      const formatNexus = document.querySelector('#format-nexus');
+      
+      // Set some messy initial code to demonstrate formatting
+      formatNexus.html = '<div><h1>  Hello World  </h1><p>This code<strong>needs formatting</strong></p>\n<ul>\n<li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></div>';
+      formatNexus.css = 'h1{color:#3182ce;margin:0 0 10px 0}p{color:#4a5568;margin-top:1rem}ul{padding-left:20px}li{margin-bottom:5px}';
+      formatNexus.javascript = 'function messyFunction(  ) {  const x=1;const y=2; const z= x+y;console.log("Result: "+z);return z;}messyFunction();';
+      
+      // Enable built-in formatting
+      formatNexus.enableFormatting = true;
+      formatNexus.formattingOptions = {
+        printWidth: 80,
+        tabWidth: 2,
+        singleQuote: true
+      };
+      formatNexus.showFormattingButtons = true;
+
+      // Format buttons - using the component&apos;s built-in methods
+      const formatAllBtn = document.querySelector('#format-all-btn');
+      const formatHtmlBtn = document.querySelector('#format-html-btn');
+      const formatCssBtn = document.querySelector('#format-css-btn');
+      const formatJsBtn = document.querySelector('#format-js-btn');
+      
+      // Add event listeners
+      formatAllBtn.addEventListener('click', () => formatNexus.formatAll());
+      formatHtmlBtn.addEventListener('click', () => formatNexus.formatHtml());
+      formatCssBtn.addEventListener('click', () => formatNexus.formatCss());
+      formatJsBtn.addEventListener('click', () => formatNexus.formatJs());
     </script>
   </body>
 </html>

@@ -5,14 +5,14 @@
   "main": "index.js",
   "packageManager": "npm@10.2.0",
   "scripts": {
-    "build:nexus": "turbo build:nexus:react",
+    "build:nexus": "turbo build:nexus",
     "start:nexus": "turbo start:nexus",
     "build:web": "turbo build:web",
     "start:web": "turbo start:web",
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy": "./utils/build-script.bash",
-    "copy:nexus": "mkdir packages/code-nexus-web/public/assets/docs/code-nexus && cp packages/code-nexus/src/components/code-nexus/readme.md packages/code-nexus-web/public/assets/docs/code-nexus/",
-    "copy:panel": "mkdir packages/code-nexus-web/public/assets/docs/nexus-panel && cp packages/code-nexus/src/components/nexus-panel/readme.md packages/code-nexus-web/public/assets/docs/nexus-panel/"
+    "copy:nexus": "mkdir -p packages/code-nexus-web/public/assets/docs/code-nexus && cp src/components/code-nexus/readme.md packages/code-nexus-web/public/assets/docs/code-nexus/",
+    "copy:panel": "mkdir -p packages/code-nexus-web/public/assets/docs/nexus-panel && cp src/components/nexus-panel/readme.md packages/code-nexus-web/public/assets/docs/nexus-panel/"
   },
   "workspaces": [
     "packages/code-nexus",

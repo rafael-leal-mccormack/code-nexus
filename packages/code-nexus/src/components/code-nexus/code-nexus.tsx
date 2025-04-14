@@ -11,6 +11,7 @@ import debounce from 'lodash.debounce';
 import Split from 'split.js';
 import { Colors, color, createTheme } from '../../themes/theme';
 import { splitPaneSvg, tabSvg } from '../../utils/svgs/svgs';
+import { FormattingOptions, createFormattingExtension, formatCode, isPrettierAvailable } from '../../extensions/formatting-extension';
 
 @Component({
   tag: 'code-nexus',
@@ -133,19 +134,53 @@ export class CodeNexus {
     }
   }
 
+  /**
+   * Enables code formatting functionality
+   */
+  @Prop() enableFormatting = false;
+  
+  /**
+   * Options for code formatting
+   */
+  @Prop() formattingOptions: FormattingOptions = {};
+  
+  /**
+   * Show formatting buttons in the UI
+   */
+  @Prop() showFormattingButtons = true;
+
   createEditor(contentType: Content, contentFunc: Function, parent: HTMLElement, completions: CompletionSource[]) {
+    const extensions = [
+      basicSetup,
+      createTheme(this.theme.colors, this.theme.dark),
+      autocompletion({ override: completions }),
+      contentFunc(),
+      EditorView.updateListener.of((update: { state: { doc: { toString: () => string } } }) => {
+        this.setContent(contentType, update.state.doc.toString());
+        this.debouncedUpdate(this.html, this.css, this.javascript);
+      }),
+    ];
+    
+    // Add formatting extension only if enabled
+    if (this.enableFormatting) {
+      let parser: string;
+      switch (contentType) {
+        case 'html': parser = 'html'; break;
+        case 'css': parser = 'css'; break;
+        case 'js': parser = 'babel'; break;
+        default: parser = 'babel';
+      }
+      extensions.push(createFormattingExtension(this.formattingOptions, parser));
+      
+      // Log formatting availability
+      if (typeof window !== 'undefined') {
+        console.debug('Prettier formatting available:', isPrettierAvailable());
+      }
+    }
+
     const startState = EditorState.create({
       doc: this.getContent(contentType),
-      extensions: [
-        basicSetup,
-        createTheme(this.theme.colors, this.theme.dark),
-        autocompletion({ override: completions }),
-        contentFunc(),
-        EditorView.updateListener.of((update: { state: { doc: { toString: () => string } } }) => {
-          this.setContent(contentType, update.state.doc.toString());
-          this.debouncedUpdate(this.html, this.css, this.javascript);
-        }),
-      ],
+      extensions,
     });
 
     return new EditorView({
@@ -303,6 +338,81 @@ ${this.javascript}
     this.updateLiveContent(template.html, template.css, template.javascript);
   };
 
+  /**
+   * Format all code sections
+   */
+  @Method()
+  async formatAll(): Promise<void> {
+    if (!this.enableFormatting) return;
+    
+    await this.formatHtml();
+    await this.formatCss();
+    await this.formatJs();
+  }
+
+  /**
+   * Format HTML code
+   */
+  @Method()
+  async formatHtml(): Promise<void> {
+    if (!this.enableFormatting || !this.htmlEditor) return;
+    
+    try {
+      const doc = this.htmlEditor.state.doc.toString();
+      const formatted = await formatCode(doc, 'html', this.formattingOptions);
+      
+      if (formatted !== doc) {
+        this.htmlEditor.dispatch({
+          changes: { from: 0, to: doc.length, insert: formatted }
+        });
+      }
+    } catch (err) {
+      console.error('HTML formatting error:', err);
+    }
+  }
+
+  /**
+   * Format CSS code
+   */
+  @Method()
+  async formatCss(): Promise<void> {
+    if (!this.enableFormatting || !this.cssEditor) return;
+    
+    try {
+      const doc = this.cssEditor.state.doc.toString();
+      const formatted = await formatCode(doc, 'css', this.formattingOptions);
+      
+      if (formatted !== doc) {
+        this.cssEditor.dispatch({
+          changes: { from: 0, to: doc.length, insert: formatted }
+        });
+      }
+    } catch (err) {
+      console.error('CSS formatting error:', err);
+    }
+  }
+
+  /**
+   * Format JavaScript code
+   */
+  @Method()
+  async formatJs(): Promise<void> {
+    if (!this.enableFormatting || !this.jsEditor) return;
+    
+    try {
+      const doc = this.jsEditor.state.doc.toString();
+      const formatted = await formatCode(doc, 'babel', this.formattingOptions);
+      
+      if (formatted !== doc) {
+        this.jsEditor.dispatch({
+          changes: { from: 0, to: doc.length, insert: formatted }
+        });
+      }
+    } catch (err) {
+      console.error('JavaScript formatting error:', err);
+    }
+  }
+
   render() {
     return (
       <Host
@@ -418,7 +528,16 @@ ${this.javascript}
               Split panes
             </button>
           </div>
-          <div>
+          <div class="footer-actions">
+            {this.enableFormatting && this.showFormattingButtons && (
+              <button 
+                class="nexus-button"
+                onClick={() => this.formatAll()}
+                title="Format all code (Ctrl+Shift+F)"
+              >
+                Format
+              </button>
+            )}
             <button
               class="nexus-button"
               onClick={() => {

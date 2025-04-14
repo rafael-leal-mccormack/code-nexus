@@ -72,6 +72,12 @@
   border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .template-selector {
   display: flex;
   align-items: center;
@@ -144,4 +150,32 @@ iframe {
 
 :not(.panel-visible).editor-panel {
   display: none;
+}
+
+.format-button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid var(--nx-border-color);
+  background-color: var(--nx-button-bg, rgba(255, 255, 255, 0.1));
+  color: var(--nx-button-text, #e0e0e0);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--nx-button-hover-bg, rgba(255, 255, 255, 0.2));
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.format-all {
+  background-color: var(--nx-primary-btn-bg, #4a6baf);
+  color: var(--nx-primary-btn-text, white);
+  
+  &:hover {
+    background-color: var(--nx-primary-btn-hover-bg, #5a7bbf);
+  }
 }

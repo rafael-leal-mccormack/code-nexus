@@ -1,0 +1,82 @@
+@import '../../global/global.scss';
+
+:host {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 4px;
+  overflow: hidden;
+  vertical-align: middle;
+  line-height: normal;
+  box-sizing: border-box;
+  margin: 0 2px;
+  padding: 0;
+  position: relative;
+}
+
+slot {
+  display: none;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.snippet-container {
+  // Adjust height for minimal appearance
+  .cm-editor {
+    height: auto;
+    min-height: auto;
+    
+    // Hide scrollbars
+    .cm-scroller {
+      overflow: hidden;
+    }
+    
+    // No gutter for inline code
+    .cm-gutters {
+      display: none;
+    }
+    
+    // Adjust cursor and selection
+    .cm-cursor {
+      display: none;
+    }
+    
+    .cm-content {
+      padding: 2px 0;
+    }
+    
+    .cm-line {
+      padding: 0 4px;
+    }
+    
+    // Set the editor's background to be transparent
+    background-color: transparent;
+  }
+}
+
+/* Dark theme styles */
+:host(.nexus-snippet-dark-theme) {
+  .snippet-container {
+    background-color: #2d333b;
+    border: 1px solid #444c56;
+    
+    .cm-content {
+      color: #e6edf3;
+    }
+  }
+}
+
+/* Light theme styles */
+:host(.nexus-snippet-light-theme) {
+  .snippet-container {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    
+    .cm-content {
+      color: #24292f;
+    }
+  }
+} 

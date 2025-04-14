@@ -8,11 +8,13 @@ interface CardProps extends PropsWithChildren {
 
 export default function OutlinedCard(props: CardProps) {
   return (
-    <LinkBox className="flex flex-col border border-solid rounded-md px-8 py-6 hover:border-white focus-within:border-white transition min-w-card w-32% min-h-card md:min-w-card-md">
-      <h3 className=" font-bold mb-3 text-lg">
-        <LinkOverlay target="_blank" href={props.href}>{props.heading}</LinkOverlay>
+    <LinkBox className="flex flex-col bg-gray-800 bg-opacity-50 border border-gray-700 hover:border-blue-500 focus-within:border-blue-500 transition rounded-lg p-6 max-w-sm min-h-[200px] transform hover:-translate-y-1 hover:shadow-xl">
+      <h3 className="font-bold mb-3 text-xl text-white">
+        <LinkOverlay target={props.href ? "_blank" : undefined} href={props.href || "#"}>
+          {props.heading}
+        </LinkOverlay>
       </h3>
-      <div className="text-sm">{props.children}</div>
+      <div className="text-gray-300 text-sm">{props.children}</div>
     </LinkBox>
   );
 }

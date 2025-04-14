@@ -10,4 +10,5 @@ import { applyPolyfills, defineCustomElements } from 'code-nexus/loader';
 applyPolyfills().then(() => defineCustomElements());
 export const CodeNexus = /*@__PURE__*/createReactComponent<JSX.CodeNexus, HTMLCodeNexusElement>('code-nexus');
 export const NexusPanel = /*@__PURE__*/createReactComponent<JSX.NexusPanel, HTMLNexusPanelElement>('nexus-panel');
+export const NexusSnippet = /*@__PURE__*/createReactComponent<JSX.NexusSnippet, HTMLNexusSnippetElement>('nexus-snippet');
 export const NexusTab = /*@__PURE__*/createReactComponent<JSX.NexusTab, HTMLNexusTabElement>('nexus-tab');

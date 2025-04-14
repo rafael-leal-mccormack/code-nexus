@@ -49,7 +49,7 @@ function App() {
     <CodeNexus 
       html="<h1>Hello World</h1>"
       css="h1 { color: blue; }"
-      javascript="console.log('Hello from Code Nexus');"
+      javascript="console.log(&apos;Hello from Code Nexus&apos;);"
     />
   );
 }
@@ -66,7 +66,7 @@ function App() {
 <code-nexus
   html="<h1>Hello World</h1>"
   css="h1 { color: blue; }"
-  javascript="console.log('Hello from Code Nexus');"
+  javascript="console.log(&apos;Hello from Code Nexus&apos;);"
 ></code-nexus>
 ```
 

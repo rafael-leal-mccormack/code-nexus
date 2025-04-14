@@ -6,8 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Colors } from "./themes/theme";
+import { FormattingOptions } from "./extensions/formatting-extension";
 import { Content } from "./components/code-nexus/code-nexus-utils";
 export { Colors } from "./themes/theme";
+export { FormattingOptions } from "./extensions/formatting-extension";
 export { Content } from "./components/code-nexus/code-nexus-utils";
 export namespace Components {
     interface CodeNexus {
@@ -17,9 +19,33 @@ export namespace Components {
          */
         "debounceTime": number;
         /**
+          * Enables code formatting functionality
+         */
+        "enableFormatting": boolean;
+        /**
           * Ability to load example/starter templates
          */
         "enableTemplates": boolean;
+        /**
+          * Format all code sections
+         */
+        "formatAll": () => Promise<void>;
+        /**
+          * Format CSS code
+         */
+        "formatCss": () => Promise<void>;
+        /**
+          * Format HTML code
+         */
+        "formatHtml": () => Promise<void>;
+        /**
+          * Format JavaScript code
+         */
+        "formatJs": () => Promise<void>;
+        /**
+          * Options for code formatting
+         */
+        "formattingOptions": FormattingOptions;
         /**
           * Hides the live editor containers
          */
@@ -31,6 +57,10 @@ export namespace Components {
           * @param template The template object containing html, css, and javascript content
          */
         "loadTemplate": (template: { html: string; css: string; javascript: string; }) => Promise<void>;
+        /**
+          * Show formatting buttons in the UI
+         */
+        "showFormattingButtons": boolean;
         /**
           * Switches from split view to a tabbed view
          */
@@ -69,6 +99,23 @@ export namespace Components {
     dark: boolean;
   };
         "type": Content;
+    }
+    interface NexusSnippet {
+        /**
+          * The content inside the snippet (inline code)
+         */
+        "content": string;
+        /**
+          * Theme configuration
+         */
+        "theme": {
+    colors: Colors;
+    dark: boolean;
+  };
+        /**
+          * The type of code (for syntax highlighting)
+         */
+        "type": 'js' | 'html' | 'css';
     }
     interface NexusTab {
         "active": boolean;
@@ -134,6 +181,12 @@ declare global {
         prototype: HTMLNexusPanelElement;
         new (): HTMLNexusPanelElement;
     };
+    interface HTMLNexusSnippetElement extends Components.NexusSnippet, HTMLStencilElement {
+    }
+    var HTMLNexusSnippetElement: {
+        prototype: HTMLNexusSnippetElement;
+        new (): HTMLNexusSnippetElement;
+    };
     interface HTMLNexusTabElement extends Components.NexusTab, HTMLStencilElement {
     }
     var HTMLNexusTabElement: {
@@ -143,6 +196,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "code-nexus": HTMLCodeNexusElement;
         "nexus-panel": HTMLNexusPanelElement;
+        "nexus-snippet": HTMLNexusSnippetElement;
         "nexus-tab": HTMLNexusTabElement;
     }
 }
@@ -154,9 +208,17 @@ declare namespace LocalJSX {
          */
         "debounceTime"?: number;
         /**
+          * Enables code formatting functionality
+         */
+        "enableFormatting"?: boolean;
+        /**
           * Ability to load example/starter templates
          */
         "enableTemplates"?: boolean;
+        /**
+          * Options for code formatting
+         */
+        "formattingOptions"?: FormattingOptions;
         /**
           * Hides the live editor containers
          */
@@ -171,6 +233,10 @@ declare namespace LocalJSX {
     css: string;
     javascript: string;
   }>) => void;
+        /**
+          * Show formatting buttons in the UI
+         */
+        "showFormattingButtons"?: boolean;
         /**
           * Switches from split view to a tabbed view
          */
@@ -214,6 +280,23 @@ declare namespace LocalJSX {
   };
         "type"?: Content;
     }
+    interface NexusSnippet {
+        /**
+          * The content inside the snippet (inline code)
+         */
+        "content"?: string;
+        /**
+          * Theme configuration
+         */
+        "theme"?: {
+    colors: Colors;
+    dark: boolean;
+  };
+        /**
+          * The type of code (for syntax highlighting)
+         */
+        "type"?: 'js' | 'html' | 'css';
+    }
     interface NexusTab {
         "active"?: boolean;
         /**
@@ -233,6 +316,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "code-nexus": CodeNexus;
         "nexus-panel": NexusPanel;
+        "nexus-snippet": NexusSnippet;
         "nexus-tab": NexusTab;
     }
 }
@@ -242,6 +326,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "code-nexus": LocalJSX.CodeNexus & JSXBase.HTMLAttributes<HTMLCodeNexusElement>;
             "nexus-panel": LocalJSX.NexusPanel & JSXBase.HTMLAttributes<HTMLNexusPanelElement>;
+            "nexus-snippet": LocalJSX.NexusSnippet & JSXBase.HTMLAttributes<HTMLNexusSnippetElement>;
             "nexus-tab": LocalJSX.NexusTab & JSXBase.HTMLAttributes<HTMLNexusTabElement>;
         }
     }
