@@ -10,6 +10,11 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/code-nexus/code-nexus.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafael-leal-mccormack/code-nexus.git",
+    "directory": "packages/code-nexus"
+  },
   "files": [
     "dist/",
     "loader/"

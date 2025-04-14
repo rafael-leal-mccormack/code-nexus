@@ -1,7 +1,13 @@
 # Code Nexus
 ![image](https://github.com/rafael-leal-mccormack/code-sandbox/assets/5799157/9e7da93f-a24f-445c-ad1c-7a6cb46f747c)
 
+[![NPM Version (Core)](https://img.shields.io/npm/v/code-nexus.svg?style=flat-square&label=code-nexus)](https://www.npmjs.com/package/code-nexus)
+[![NPM Version (React)](https://img.shields.io/npm/v/code-nexus-react.svg?style=flat-square&label=code-nexus-react)](https://www.npmjs.com/package/code-nexus-react)
+[![Docs Site](https://img.shields.io/badge/Docs-codenexus.us-blue?style=flat-square)](https://codenexus.us)
+
 Code Nexus is a powerful in-page code editor library that provides an interactive coding environment directly within your web applications. Built with a component-based architecture, it offers both a standalone editor and a side panel that can load and display content dynamically.
+
+**[Visit the Documentation Website: codenexus.us](https://codenexus.us)**
 
 ## Repository Structure
 

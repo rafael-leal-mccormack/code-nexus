@@ -1,10 +1,15 @@
 {
   "name": "code-nexus-react",
   "version": "0.0.3",
-  "description": "",
+  "description": "React wrapper components for the code-nexus library",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafael-leal-mccormack/code-nexus.git",
+    "directory": "packages/code-nexus-react"
+  },
   "scripts": {
     "build:nexus:react": "npm run tsc",
     "test": "node ./__tests__/react-library.test.js",
